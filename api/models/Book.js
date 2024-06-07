@@ -9,7 +9,7 @@ const BookSchema = new Schema({
     dia: Date,
     modific: Date,
     index: Number,
-    group: String,
+    group: {type: String, default: 'padrão'},
 })
 
 const BookModel = mongoose.model('Book', BookSchema);

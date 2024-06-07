@@ -6,6 +6,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import CreateContent from '../create/CreateContent';
 import Contents from '../../components.jsx/Contents';
+import CreateModule from '../create/CreateModule';
 
 //import { CKEditor } from '@ckeditor/ckeditor5-react';
 //import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -33,6 +34,7 @@ export default function ModulePage({ modulos }) {
     const { id } = useParams();
 
     const [createContent, setCreateContent] = useState(false);
+    const [editModule, setEditModule] = useState(false);
     const [moduleId, setModuleId] = useState(null);
 
     const [seeContents, setSeeContents] = useState(false);
@@ -49,13 +51,7 @@ export default function ModulePage({ modulos }) {
         axios.get('/get-contents/'+id).then(response => {
             setContents([...response.data])
         })
-    }, [])
-
-    if (createContent) {
-        return (
-          <CreateContent />
-        )
-    }
+    }, [id])
 
     async function saveContent(ev){
         ev.preventDefault();
@@ -84,8 +80,16 @@ export default function ModulePage({ modulos }) {
         }
     }
 
-    if(createContent){
-      <CreateContent />
+    if (createContent) {
+      return (
+        <CreateContent />
+      )
+    }
+
+    if(editModule){
+      return (
+        <CreateModule />
+      )
     }
 
     return (
@@ -100,7 +104,11 @@ export default function ModulePage({ modulos }) {
                             <div className="">
                                 <Link><button onClick={() => setCreateContent(true)} type="submit" className="w-full focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Novo conteúdo</button></Link>
                             </div>
+                            <div className="">
+                                <button onClick={() => setEditModule(true)} type="submit" className="w-full focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Editar módulo</button>
+                            </div>
                         </div>
+                        <h2></h2>
                         <Contents contents={contents} />
                 </div>
         </div>

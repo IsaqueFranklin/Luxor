@@ -228,10 +228,8 @@ app.post('/criar-book', async (req, res) => {
     const {bookTitle, bookDescription, bookAddedPhotos, dia} = req.body;
 
     const {admin} = await User.findById(userData.id);
-    console.log(admin)
 
     const index = await Book.find();
-    console.log(index)
 
     if(admin === true){
         Book.create({
@@ -249,8 +247,43 @@ app.post('/criar-book', async (req, res) => {
     }
 })
 
+app.put('/criar-book', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+
+    const {bookTitle, bookDescription, bookAddedPhotos, dia, id} = req.body;
+
+    const {admin} = await User.findById(userData.id);
+
+
+    try {
+        if(admin === true){
+            const postDoc = await Book.findById(id);
+            if(userData.id === postDoc.owner.toString()){
+                postDoc.set({
+                    title:bookTitle,
+                    description:bookDescription,
+                    photos:bookAddedPhotos,
+                    modific:dia,
+                    owner:userData.id,
+                })
+
+                await postDoc.save();
+                res.json(postDoc);
+            }
+        }
+    
+    } catch(err){
+        console.log(err)
+    }
+})
+
 app.get('/get-books', async (req, res) => {
     res.json(await Book.find().sort({dia: -1}).populate('owner', ['username', 'dia']).sort({createdAt: -1}));
+})
+
+app.get('/get-book/:id', async (req, res) => {
+    const {id} = req.params;
+    res.json(await Book.findById(id))
 })
 
 app.post('/criar-conteudo', async (req, res) => {

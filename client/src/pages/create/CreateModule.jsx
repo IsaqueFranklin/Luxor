@@ -38,6 +38,23 @@ export default function CreateModule(){
     const [bookDescription, setBookDescription] = useState('');
     const [bookAddedPhotos, setBookAddedPhotos] = useState([]);
 
+    const [cancel, setCancel] = useState(false);
+
+    useEffect(() => {
+        if(!id){
+            return
+        }
+
+        axios.get('/get-book/'+id).then(response => {
+
+            const {data} = response;
+            setBookTitle(data.title)
+            setBookDescription(data.description)
+            setBookAddedPhotos(data.photos)
+        })
+
+    }, [id])
+
     async function saveBook(ev){
         ev.preventDefault();
 
@@ -48,7 +65,7 @@ export default function CreateModule(){
         try {
             if(user?.admin){
                 if(id){
-                    await axios.post('/criar-book', {
+                    await axios.put('/criar-book', {
                         id, ...bookPostData
                     })
                     setRedirect(true);
@@ -72,7 +89,7 @@ export default function CreateModule(){
         return <Navigate to={'/cadastro'} />
     }
 
-    if(redirect){
+    if(redirect || cancel){
         window.location.reload()
     }
 
@@ -92,6 +109,7 @@ export default function CreateModule(){
                         <button className='py-2 px-4 w-full rounded rounded-lg bg-[#0047AB] text-white hover:bg-white hover:text-black my-4 mb-20'>Publicar</button>
                     </div>
                 </form>
+            <button onClick={() => setCancel(true)} className='py-2 px-4 w-full rounded rounded-lg bg-black text-white hover:bg-white hover:text-black my-4 mb-20'>Cancelar</button>
         </div>
     )
 }
