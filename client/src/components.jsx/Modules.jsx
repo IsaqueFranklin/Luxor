@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 export default function Modules({ modules }){
 
     return (
-        <div className='carousel carousel-center gap-8'>
+        <>
+        <div className='carousel gap-8 max-w-full lg:max-w-7xl'>
             {modules?.length > 0 && modules?.map((module, key) => {
                 return(
                     <>
-                    <Link to={'/modulo/'+module._id} key={key} className='mx-8 carousel-item'>
+                    <Link to={'/modulo/'+module._id} key={key} id={key} className='carousel-item'>
                         <div class="artboard phone-1 relative max-w-xl mx-auto mt-20">
-                            <img class="h-full w-full object-cover rounded-md aspect-square" src={'http://localhost:5000/uploads/'+module.photos?.[0]} alt="Random image" />
+                            <img class="h-full w-full object-cover rounded-md" src={'http://localhost:5000/uploads/'+module.photos?.[0]} alt="Random image" />
                             <div class="absolute inset-0 bg-gray-700 opacity-30 rounded-md"></div>
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <div className="my-auto mx-auto items-center justify-center">
@@ -20,15 +21,17 @@ export default function Modules({ modules }){
                             </div>
                         </div>
                     </Link>
-                    <div className="flex justify-center w-full py-2 gap-2">
-                        <a href="#item1" className="btn btn-xs">1</a> 
-                        <a href="#item2" className="btn btn-xs">2</a> 
-                        <a href="#item3" className="btn btn-xs">3</a> 
-                        <a href="#item4" className="btn btn-xs">4</a>
-                    </div>
                     </>
                 )
             })}
         </div>
+        <div className="flex justify-center w-full py-2 gap-2">
+            {modules.length > 0 && modules.map((module, key) => {
+                return (
+                    <a href={"#"+key} className="btn btn-xs">{key}</a> 
+                )
+            })}
+        </div>
+    </>
     )
 }

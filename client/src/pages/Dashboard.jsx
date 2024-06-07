@@ -48,7 +48,7 @@ export default function PublicarPage(){
                         <div className="w-full rounded-lg md:mt-0 sm:max-w-md xl:p-0 grid grid-cols-2 gap-4">
                             
                             <div className="">
-                                <Link><button onClick={() => setBook(true)} type="submit" className="w-full hover:bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Novo Book</button></Link>
+                                <Link><button onClick={() => setBook(true)} type="submit" className="w-full focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Novo Book</button></Link>
                             </div>
                         </div>
                     <Modules modules={books} />
