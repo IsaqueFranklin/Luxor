@@ -66,7 +66,7 @@ app.post('/confirmar-email', (req, res) => {
         secure: true,
         auth: {
           // TODO: replace `user` and `pass` values from <https://forwardemail.net>
-          user: "isaquefrankli@gmail.com",
+          user: "indexpage.me@gmail.com",
           pass: process.env.GMAIL_API_KEY,
         },
       });
@@ -105,7 +105,7 @@ app.post('/2fa-confirmar-email', (req, res) => {
         secure: true,
         auth: {
           // TODO: replace `user` and `pass` values from <https://forwardemail.net>
-          user: "isaquefrankli@gmail.com",
+          user: "indexpage.me@gmail.com",
           pass: process.env.GMAIL_API_KEY,
         },
       });

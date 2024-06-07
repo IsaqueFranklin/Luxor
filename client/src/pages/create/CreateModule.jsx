@@ -1,8 +1,8 @@
 import {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {Navigate, Link, useParams} from 'react-router-dom';
-import { UserContext } from '../UserContext';
-import PhotosUploader from '../components.jsx/PhotosUploader';
+import { UserContext } from '../../UserContext';
+import PhotosUploader from '../../components.jsx/PhotosUploader';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -26,7 +26,7 @@ const formats = [
     'link', 'image'
 ];
 
-export default function PubBookPage(){
+export default function CreateModule(){
 
     const {ready, user, setUser} = useContext(UserContext);
     const {id} = useParams();
@@ -73,7 +73,7 @@ export default function PubBookPage(){
     }
 
     if(redirect){
-        return window.location.reload();
+        return <Navigate to={'/dashboard'} />
     }
 
     return (
