@@ -5,12 +5,8 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User');
-const Newsletter = require('./models/Newsletter');
 const Book = require('./models/Book');
-const Modulo = require('./models/Modulo');
 const Conteudo = require('./models/Conteudo');
-const Carta = require('./models/Carta');
-const Blog = require('./models/Blog')
 
 const nodemailer = require('nodemailer');
 const fs = require('fs');
@@ -225,33 +221,6 @@ app.post('/upload', photosMiddleware.array('photos', 10), (req, res) => {
     res.json(uploadedFiles);
 })
 
-app.post('/criar-newsletter', async (req, res) => {
-    const userData = await getUserDataFromReq(req);
-    console.log(userData)
-
-    const {title, description, addedPhotos, content, dia} = req.body;
-
-    const {admin} = await User.findById(userData.id);
-
-    const index = await Newsletter.find();
-
-    if(admin ===  true){
-        Newsletter.create({
-            title,
-            description,
-            photos:addedPhotos,
-            content,
-            dia,
-            owner:userData.id,
-            index:index.length
-        }).then(doc => {
-            res.json(doc)
-        }).catch(err => {
-            throw err;
-        })
-    }
-})
-
 app.post('/criar-book', async (req, res) => {
     const userData =  await getUserDataFromReq(req);
     console.log("Aqui: ",userData)
@@ -282,32 +251,6 @@ app.post('/criar-book', async (req, res) => {
 
 app.get('/get-books', async (req, res) => {
     res.json(await Book.find().sort({dia: -1}).populate('owner', ['username', 'dia']).sort({createdAt: -1}));
-})
-
-app.post('/criar-modulo', async (req, res) => {
-    const userData = await getUserDataFromReq(req);
-
-    const {moduleTitle, moduleDescription, moduleAddedPhotos, dia, bookId} = req.body;
-
-    const {admin} = await User.findById(userData.id);
-
-    const index = await Modulo.find({conjunto: bookId});
-
-    if(admin === true){
-        Modulo.create({
-            title:moduleTitle,
-            description:moduleDescription,
-            photos:moduleAddedPhotos,
-            dia,
-            owner:userData.id,
-            index:index.length,
-            conjunto: bookId
-        })
-    }
-})
-
-app.get('/get-modulos', async (req, res) => {
-    res.json(await Modulo.find().sort({dia: -1}).populate('owner', ['username', 'dia']).sort({createdAt: -1}));
 })
 
 app.post('/criar-conteudo', async (req, res) => {
@@ -369,38 +312,14 @@ app.put('/criar-conteudo', async (req, res) => {
     }
 })
 
-app.get('/get-contents', async (req, res) => {
-    res.json(await Conteudo.find().sort({dia: -1}).populate('owner', ['username', 'dia']).sort({createdAt: -1}));
+app.get('/get-contents/:id', async (req, res) => {
+    const {id} = req.params;
+    res.json(await Conteudo.find({ conjunto: id }).sort({dia: -1}).populate('owner', ['username', 'dia']));
 })
 
 app.get('/content/:id', async (req, res) => {
     const {id} = req.params;
     res.json(await Conteudo.findById(id));
-})
-
-app.post("/criar-blog", async (req, res) => {
-    const userData = await getUserDataFromReq(req);
-
-    const {contentTitle, contentDescription, contentAddedPhotos, contentContent, dia, id} = req.body;
-
-    const {admin} = await User.findById(userData.id);
-
-    try {
-        if(admin){
-            Blog.create({
-                title: contentTitle,
-                description: contentDescription,
-                content: contentContent,
-                dia: dia,
-                photos: contentAddedPhotos,
-                owner: userData.id,
-            })
-        }
-
-        res.status(200);
-    } catch (err) {
-        throw err;
-    }
 })
 
 //Start the server

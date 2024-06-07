@@ -1,30 +1,72 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { UserContext } from '../../UserContext';
+import { useParams } from 'react-router-dom';
+import PhotosUploader from '../../components.jsx/PhotosUploader';
+import axios from "axios";
 
 const CreateContent = () => {
-
-    if(createModule){
-        return (
-            <div className='my-auto mx-auto items-center mt-12 max-w-4xl'>
-                <form onSubmit={saveModule}>
-                    <h2 className='text-2xl mt-4 mb-4'>Título do seu módulo</h2>
-                    <input type="text" value={moduleTitle} onChange={ev => setModuleTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
-
-                    <h2 className='text-2xl mt-12 mb-4'>Descrição do seu módulo</h2>
-                    <input type="text" value={moduleDescription} onChange={ev => setModuleDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
-
-                    <h2 className='text-2xl mt-12 mb-4'>Foto de capa do seu módulo</h2>
-                    <PhotosUploader addedPhotos={moduleAddedPhotos} onChange={setModuleAddedPhotos} />
-
-                    <div className='mb-10 mt-12'>
-                        <button className='py-2 px-4 w-full rounded rounded-lg bg-[#0047AB] text-white hover:bg-white hover:text-black my-4 mb-20'>Publicar</button>
-                    </div>
-                </form>
-            </div>
-        )
-    }
     
+    const {ready, user, setUser} = useContext(UserContext);
+    const {id} = useParams();
+
+    const [contentTitle, setContentTitle] = useState('');
+    const [contentDescription, setContentDescription] = useState('');
+    const [contentContent, setContentContent] = useState('')
+    const [contentAddedPhotos, setContentAddedPhotos] = useState([]);
+
+    const [redirect, setRedirect] = useState(false);
+
+    async function saveContent(ev){
+        ev.preventDefault();
+
+        const conteudoPostData = {
+            contentTitle, contentDescription, contentAddedPhotos, dia:new Date()
+        }
+
+        try {
+            if(user?.admin){
+                if(id){
+                    await axios.post('/criar-conteudo', {
+                        id, ...conteudoPostData
+                    })
+                    setRedirect(true);
+                } else {
+                    await axios.post('/criar-conteudo', {
+                        ...conteudoPostData
+                    })
+                    setRedirect(true);
+                }
+            } else {
+                console.log("Você não é admim.")
+                alert("Você não é admim.")
+            }
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    if(redirect){
+        window.location.reload()
+    }
+
     return (
-        <div>CreateModule</div>
+        <div className='my-auto mx-auto items-center mt-12 max-w-4xl'>
+            <form onSubmit={saveContent}>
+                <h2 className='text-2xl mt-4 mb-4'>Título do seu conteúdo</h2>
+                <input type="text" value={contentTitle} onChange={ev => setContentTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
+
+                <h2 className='text-2xl mt-12 mb-4'>Descrição do seu conteúdo</h2>
+                <input type="text" value={contentDescription} onChange={ev => setContentDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
+
+                <h2 className='text-2xl mt-12 mb-4'>Foto de capa do seu conteúdo</h2>
+                <PhotosUploader addedPhotos={contentAddedPhotos} onChange={setContentAddedPhotos} />
+
+                <div className='mb-10 mt-12'>
+                    <button className='py-2 px-4 w-full rounded rounded-lg bg-[#0047AB] text-white hover:bg-white hover:text-black my-4 mb-20'>Publicar</button>
+                </div>
+            </form>
+        </div>
     )
 }
 

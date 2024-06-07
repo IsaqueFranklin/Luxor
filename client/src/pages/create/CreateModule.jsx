@@ -73,7 +73,7 @@ export default function CreateModule(){
     }
 
     if(redirect){
-        return <Navigate to={'/dashboard'} />
+        window.location.reload()
     }
 
     return (

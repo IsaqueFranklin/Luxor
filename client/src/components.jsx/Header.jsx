@@ -44,7 +44,7 @@ const Header = () => {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">Luxor</a>
       </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">

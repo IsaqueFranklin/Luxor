@@ -13,7 +13,7 @@ const ConteudoSchema = new Schema({
     coments: [String],
     likes: [String],
     index: Number,
-    conjunto: {type: mongoose.Schema.Types.ObjectId, ref:'Modulo'},
+    conjunto: {type: mongoose.Schema.Types.ObjectId, ref:'Book'},
 })
 
 const ConteudoModel = mongoose.model('Conteudo', ConteudoSchema);
