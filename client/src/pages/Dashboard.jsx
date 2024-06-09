@@ -5,6 +5,7 @@ import { UserContext } from '../UserContext';
 import Header from '../components.jsx/Header';
 import Modules from '../components.jsx/Modules';
 import CreateModule from './create/CreateModule';
+import CreateGroup from './create/CreateGroup';
 
 
 export default function PublicarPage(){
@@ -14,6 +15,7 @@ export default function PublicarPage(){
 
     const [newsletter, setNewsletter] = useState(false);
     const [book, setBook] = useState(false);
+    const [group, setGroup] = useState(false);
 
 
     const [books, setBooks] = useState([]);
@@ -36,6 +38,12 @@ export default function PublicarPage(){
         )
     }
 
+    if(group){
+        return (
+            <CreateGroup books={books} />
+        )
+    }
+
     return (
         <>
             <Header />
@@ -49,6 +57,10 @@ export default function PublicarPage(){
                             
                             <div className="">
                                 <Link><button onClick={() => setBook(true)} type="submit" className="w-full focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Novo Book</button></Link>
+                            </div>
+
+                            <div className="">
+                                <Link><button onClick={() => setGroup(true)} type="submit" className="w-full focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Criar grupo</button></Link>
                             </div>
                         </div>
                     <Modules modules={books} />
