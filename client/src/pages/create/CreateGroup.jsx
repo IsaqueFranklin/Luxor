@@ -44,14 +44,14 @@ function CreateGroup({ books }){
 
     }
 
-    function handleCheckboxChange(title){
-        const repeated = booksArray.filter(book => book === title)
+    function handleCheckboxChange(id){
+        const repeated = booksArray.filter(book => book === id)
         console.log(repeated?.length === 0)
 
         if(repeated?.length === 0){
-            setBooksArray([...booksArray, title])
+            setBooksArray([...booksArray, id])
         } else {
-            setBooksArray((prevItems) => prevItems.filter(item => item === title));
+            setBooksArray((prevItems) => prevItems.filter(item => item != id));
         }
     }
 
@@ -70,7 +70,7 @@ function CreateGroup({ books }){
                     <div key={key} className="form-control">
                         <label className="label cursor-pointer">
                             <span className="label-text">{book?.title}</span> 
-                            <input onChange={() => handleCheckboxChange(book.title)} type="checkbox" defaultUnchecked className="checkbox" />
+                            <input onChange={() => handleCheckboxChange(book._id)} type="checkbox" defaultUnchecked className="checkbox" />
                         </label>
                     </div>
                 ))}
