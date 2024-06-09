@@ -45,26 +45,23 @@ function CreateGroup({ books }){
     }
 
     function handleCheckboxChange(title){
-        console.log(title)
-
         const repeated = booksArray.filter(book => book === title)
-        console.log(repeated)
+        console.log(repeated?.length === 0)
 
-        if(booksArray.filter(book => book === title)){
+        if(repeated?.length === 0){
             setBooksArray([...booksArray, title])
         } else {
             setBooksArray((prevItems) => prevItems.filter(item => item === title));
         }
-
-        console.log(booksArray)
     }
 
     if(redirect){
         window.location.reload()
     }
 
+    console.log(booksArray)
     return (
-        <div className='my-auto mx-auto items-center mt-12 max-w-4xl'>
+        <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
             <form onSubmit={saveContent}>
                 <h2 className='text-2xl mt-4 mb-4'>Título do seu grupo</h2>
                 <input type="text" value={groupTitle} onChange={ev => setGroupTitle(ev.target.value)} placeholder='Um título de cair as calças...' />

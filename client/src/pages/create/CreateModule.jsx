@@ -94,7 +94,7 @@ export default function CreateModule(){
     }
 
     return (
-        <div className='my-auto mx-auto items-center mt-12 max-w-4xl'>
+        <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
         <form onSubmit={saveBook}>
             <h2 className='text-2xl mt-4 mb-4'>Título do seu book</h2>
             <input type="text" value={bookTitle} onChange={ev => setBookTitle(ev.target.value)} placeholder='Um título de cair as calças...' />

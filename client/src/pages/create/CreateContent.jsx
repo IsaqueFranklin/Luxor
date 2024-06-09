@@ -51,7 +51,7 @@ const CreateContent = () => {
     }
 
     return (
-        <div className='my-auto mx-auto items-center mt-12 max-w-4xl'>
+        <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
             <form onSubmit={saveContent}>
                 <h2 className='text-2xl mt-4 mb-4'>Título do seu conteúdo</h2>
                 <input type="text" value={contentTitle} onChange={ev => setContentTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
