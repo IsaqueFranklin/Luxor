@@ -14,23 +14,23 @@ function CreateGroup({ books }){
 
     const [redirect, setRedirect] = useState(false);
 
-    async function saveContent(ev){
+    async function createGroupHandle(ev){
         ev.preventDefault();
 
-        const conteudoPostData = {
+        const groupData = {
             groupTitle, booksArray, dia:new Date()
         }
 
         try {
             if(user?.admin){
                 if(id){
-                    await axios.post('/criar-conteudo', {
-                        id, ...conteudoPostData
+                    await axios.post('/criar-grupo', {
+                        id, ...groupData
                     })
                     setRedirect(true);
                 } else {
-                    await axios.post('/criar-conteudo', {
-                        ...conteudoPostData
+                    await axios.post('/criar-grupo', {
+                        ...groupData
                     })
                     setRedirect(true);
                 }
@@ -59,10 +59,9 @@ function CreateGroup({ books }){
         window.location.reload()
     }
 
-    console.log(booksArray)
     return (
         <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
-            <form onSubmit={saveContent}>
+            <form onSubmit={createGroupHandle}>
                 <h2 className='text-2xl mt-4 mb-4'>Título do seu grupo</h2>
                 <input type="text" value={groupTitle} onChange={ev => setGroupTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
 

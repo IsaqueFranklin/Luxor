@@ -12,6 +12,7 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const imageDownloader = require('image-downloader');
 const multer = require('multer');
+const Group = require('./models/Group');
 require('dotenv').config();
 
 const app = express();
@@ -353,6 +354,50 @@ app.get('/get-contents/:id', async (req, res) => {
 app.get('/content/:id', async (req, res) => {
     const {id} = req.params;
     res.json(await Conteudo.findById(id));
+})
+
+app.post('/criar-grupo', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+    const {groupTitle, booksArray, dia} = req.body;
+
+    const fullUserDoc = await User.findById(userData?.id);
+    console.log(fullUserDoc.admin)
+    
+    try {
+        if(fullUserDoc?.admin){
+            Group.create({
+                tag:groupTitle,
+                dia,
+                owner:userData?.id
+            })
+        }
+
+        try {
+
+            console.log(booksArray)
+            if(fullUserDoc?.admin){
+                booksArray.map((item) => {  
+                    console.log(item)  
+                    Book.findById(item).then(response => {
+                        console.log(response);
+                        return response.set({ group: item });
+                    }).then(updatedResponse => {
+                        return updatedResponse.save();
+                    }).then(() => {
+                        console.log('Book updated and saved successfully.');
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                })
+            }
+            res.json();
+        } catch(err){
+            console.log(err)
+        }
+    
+    } catch(err){
+        console.log(err)
+    }
 })
 
 //Start the server
