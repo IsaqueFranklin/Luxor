@@ -365,34 +365,34 @@ app.post('/criar-grupo', async (req, res) => {
     
     try {
         if(fullUserDoc?.admin){
-            Group.create({
+            const group = await Group.create({
                 tag:groupTitle,
                 dia,
                 owner:userData?.id
             })
-        }
 
-        try {
+            try {
 
-            console.log(booksArray)
-            if(fullUserDoc?.admin){
-                booksArray.map((item) => {  
-                    console.log(item)  
-                    Book.findById(item).then(response => {
-                        console.log(response);
-                        return response.set({ group: item });
-                    }).then(updatedResponse => {
-                        return updatedResponse.save();
-                    }).then(() => {
-                        console.log('Book updated and saved successfully.');
-                    }).catch(error => {
-                        console.log(error);
-                    });
-                })
+                console.log(booksArray)
+                if(fullUserDoc?.admin){
+                    booksArray.map((item) => {  
+                        console.log(item)  
+                        Book.findById(item).then(response => {
+                            console.log(response);
+                            return response.set({ group: group._id });
+                        }).then(updatedResponse => {
+                            return updatedResponse.save();
+                        }).then(() => {
+                            console.log('Book updated and saved successfully.');
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                    })
+                }
+                res.json();
+            } catch(err){
+                console.log(err)
             }
-            res.json();
-        } catch(err){
-            console.log(err)
         }
     
     } catch(err){
