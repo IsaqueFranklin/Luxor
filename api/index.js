@@ -361,7 +361,6 @@ app.post('/criar-grupo', async (req, res) => {
     const {groupTitle, booksArray, dia} = req.body;
 
     const fullUserDoc = await User.findById(userData?.id);
-    console.log(fullUserDoc.admin)
     
     try {
         if(fullUserDoc?.admin){
@@ -373,13 +372,12 @@ app.post('/criar-grupo', async (req, res) => {
 
             try {
 
-                console.log(booksArray)
                 if(fullUserDoc?.admin){
                     booksArray.map((item) => {  
                         console.log(item)  
                         Book.findById(item).then(response => {
                             console.log(response);
-                            return response.set({ group: group._id });
+                            return response.set({ group: group._id, groupTag: groupTitle });
                         }).then(updatedResponse => {
                             return updatedResponse.save();
                         }).then(() => {
@@ -398,6 +396,15 @@ app.post('/criar-grupo', async (req, res) => {
     } catch(err){
         console.log(err)
     }
+})
+
+app.get('/get-groups', async (req, res) => {
+    res.json(await Group.find().sort({dia: -1}).populate('owner', ['username', 'dia']).sort({createdAt: -1}));
+})
+
+app.get('/get-group/:id', async (req, res) => {
+    const {id} = req.params;
+    res.json(await Group.findById(id));
 })
 
 //Start the server

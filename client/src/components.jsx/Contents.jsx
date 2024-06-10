@@ -8,7 +8,7 @@ export default function Contents({ contents }){
         <div className='carousel gap-8 max-w-full lg:max-w-7xl'>
             {contents?.length > 0 && contents?.map((content, key) => {
                 return(
-                    <>
+                    <div key={key}>
                     <Link to={'/conteudo/'+content._id} key={key} id={key} className='carousel-item'>
                         <div className="artboard phone-1 relative max-w-xl mx-auto mt-20">
                             <img className="h-full w-full object-cover rounded-md" src={'http://localhost:5000/uploads/'+content.photos?.[0]} alt="Random image" />
@@ -21,7 +21,7 @@ export default function Contents({ contents }){
                             </div>
                         </div>
                     </Link>
-                    </>
+                    </div>
                 )
             })}
         </div>

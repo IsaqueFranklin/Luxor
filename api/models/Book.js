@@ -10,6 +10,7 @@ const BookSchema = new Schema({
     modific: Date,
     index: Number,
     group: {type: String, default: 'padrão'},
+    groupTag: String,
 })
 
 const BookModel = mongoose.model('Book', BookSchema);

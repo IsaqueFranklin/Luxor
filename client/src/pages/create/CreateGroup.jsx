@@ -3,7 +3,7 @@ import { UserContext } from '../../UserContext';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 
-function CreateGroup({ books }){
+function CreateGroup({ modules }){
     
     const {ready, user, setUser} = useContext(UserContext);
     const {id} = useParams();
@@ -13,6 +13,15 @@ function CreateGroup({ books }){
     const [booksArray, setBooksArray] = useState([]);
 
     const [redirect, setRedirect] = useState(false);
+
+    useEffect(() => {
+        if(id){
+            axios.get('/get-group/'+id).then(response => {
+                const {data} = response;
+                setGroupTitle(data.tag);
+            })
+        }
+    }, [])
 
     async function createGroupHandle(ev){
         ev.preventDefault();
@@ -59,17 +68,20 @@ function CreateGroup({ books }){
         window.location.reload()
     }
 
+    const filteredModules = modules.filter(module => module.group === 'padrão' || module.group === null || module.group === '')
+    const arrayToUse = id ? modules : filteredModules;
+
     return (
         <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
             <form onSubmit={createGroupHandle}>
                 <h2 className='text-2xl mt-4 mb-4'>Título do seu grupo</h2>
                 <input type="text" value={groupTitle} onChange={ev => setGroupTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
 
-                {books?.length > 0 && books?.map((book, key) => (
+                {arrayToUse?.length > 0 &&  arrayToUse?.map((module, key) => (
                     <div key={key} className="form-control">
                         <label className="label cursor-pointer">
-                            <span className="label-text">{book?.title}</span> 
-                            <input onChange={() => handleCheckboxChange(book._id)} type="checkbox" defaultUnchecked className="checkbox" />
+                            <span className="label-text">{module?.title}</span> 
+                            <input onChange={() => handleCheckboxChange(module._id)} type="checkbox" defaultChecked={!!id} className="checkbox" />
                         </label>
                     </div>
                 ))}
