@@ -6,6 +6,7 @@ const GroupSchema = new Schema({
     tag: String,
     dia: Date,
     index: Number,
+    modulesArray: [{type: mongoose.Schema.Types.ObjectId, ref:'Book'}],
 })
 
 const GroupModel = mongoose.model('Group', GroupSchema);

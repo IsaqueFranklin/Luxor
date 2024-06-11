@@ -28,7 +28,7 @@ export default function Contents({ contents }){
         <div className="flex justify-center w-full py-2 gap-2">
             {contents.length > 0 && contents.map((content, key) => {
                 return (
-                    <a href={"#"+key} key={key} className="btn btn-xs">{key}</a> 
+                    <a href={"#"+key} key={key} className="btn btn-xs">{key+1}</a> 
                 )
             })}
         </div>

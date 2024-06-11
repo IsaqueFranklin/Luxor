@@ -22,7 +22,8 @@ export default function EditGroup(){
         return <Navigate to={'/login'} />
     }
 
+    //modules.filter(module => module.group === id)
     return (
-        <CreateGroup modules={modules.filter(module => module.group === id)} />
+        <CreateGroup modules={modules} />
     )
 }

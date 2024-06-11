@@ -367,7 +367,8 @@ app.post('/criar-grupo', async (req, res) => {
             const group = await Group.create({
                 tag:groupTitle,
                 dia,
-                owner:userData?.id
+                owner:userData?.id,
+                modulesArray:booksArray
             })
 
             try {

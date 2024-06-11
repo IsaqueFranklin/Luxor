@@ -60,7 +60,7 @@ export default function PublicarPage(){
                         </h1>
                         <div className="w-full rounded-lg md:mt-0 sm:max-w-md xl:p-0 flex gap-4">
                             <Link><button onClick={() => setBook(true)} type="submit" className="btn btn-success">Novo Book</button></Link>
-                            <Link><button onClick={() => setGroup(true)} type="submit" className="btn btn-info">Criar grupo</button></Link>
+                            <Link><button onClick={() => setGroup(true)} type="submit" className="btn btn-success">Criar grupo</button></Link>
                         </div>
                     {groups?.length > 0 && groups?.map((group, key) => (
                         <Modules modules={modules.filter(module => module.group === group._id)} key={key} />

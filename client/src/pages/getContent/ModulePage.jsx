@@ -99,14 +99,9 @@ export default function ModulePage({ modulos }) {
                         <h1 className="text-xl font-light leading-tight tracking-tight lg:text-3xl mb-4">
                             Qual tipo de publicação deseja criar?
                         </h1>
-                        <div className="w-full rounded-lg md:mt-0 sm:max-w-md xl:p-0 grid grid-cols-2 gap-4">
-                            
-                            <div className="">
-                                <Link><button onClick={() => setCreateContent(true)} type="submit" className="w-full focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Novo conteúdo</button></Link>
-                            </div>
-                            <div className="">
-                                <button onClick={() => setEditModule(true)} type="submit" className="w-full focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Editar módulo</button>
-                            </div>
+                        <div className="w-full rounded-lg md:mt-0 sm:max-w-md xl:p-0 flex gap-4">
+                            <Link><button onClick={() => setCreateContent(true)} type="submit" className="btn btn-success">Novo conteúdo</button></Link>
+                            <button onClick={() => setEditModule(true)} type="submit" className="btn btn-active">Editar módulo</button>
                         </div>
                         <h2></h2>
                         <Contents contents={contents} />
