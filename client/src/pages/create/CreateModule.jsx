@@ -26,7 +26,7 @@ const formats = [
     'link', 'image'
 ];
 
-export default function CreateModule(){
+export default function CreateModule({ onChange }){
 
     const {ready, user, setUser} = useContext(UserContext);
     const {id} = useParams();
@@ -37,8 +37,6 @@ export default function CreateModule(){
     const [bookTitle, setBookTitle] = useState('');
     const [bookDescription, setBookDescription] = useState('');
     const [bookAddedPhotos, setBookAddedPhotos] = useState([]);
-
-    const [cancel, setCancel] = useState(false);
 
     useEffect(() => {
         if(!id){
@@ -89,18 +87,21 @@ export default function CreateModule(){
         return <Navigate to={'/cadastro'} />
     }
 
-    if(redirect || cancel){
+    if(redirect){
         window.location.reload()
     }
 
     return (
-        <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
+        <div className='my-auto mx-auto items-center py-8 lg:pt-32 max-w-4xl px-8'>
+            <button onClick={() => onChange(false)} className='btn btn-active'>
+            ⬅️ Voltar
+            </button>
         <form onSubmit={saveBook}>
             <h2 className='text-2xl mt-4 mb-4'>Título do seu book</h2>
-            <input type="text" value={bookTitle} onChange={ev => setBookTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
+            <input className="input input-ghost w-full max-w-xs" type="text" value={bookTitle} onChange={ev => setBookTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
 
             <h2 className='text-2xl mt-12 mb-4'>Descrição do seu book</h2>
-            <input type="text" value={bookDescription} onChange={ev => setBookDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
+            <input className="input input-ghost w-full max-w-xs" type="text" value={bookDescription} onChange={ev => setBookDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
 
                     <h2 className='text-2xl mt-12 mb-4'>Foto de capa do seu book</h2>
                     <PhotosUploader addedPhotos={bookAddedPhotos} onChange={setBookAddedPhotos} />
@@ -109,7 +110,6 @@ export default function CreateModule(){
                         <button className='py-2 px-4 w-full rounded rounded-lg bg-[#0047AB] text-white hover:bg-white hover:text-black my-4 mb-20'>Publicar</button>
                     </div>
                 </form>
-            <button onClick={() => setCancel(true)} className='py-2 px-4 w-full rounded rounded-lg bg-black text-white hover:bg-white hover:text-black my-4 mb-20'>Cancelar</button>
         </div>
     )
 }

@@ -12,6 +12,8 @@ export default function EditGroup(){
 
     const [modules, setModules] = useState([]);
 
+    const [group, setGroup] = useState(true);
+
     useEffect(() => {
         axios.get('/get-books').then(response => {
             setModules([...response.data])
@@ -22,8 +24,11 @@ export default function EditGroup(){
         return <Navigate to={'/login'} />
     }
 
-    //modules.filter(module => module.group === id)
+    if(!group){
+        return <Navigate to={'/dashboard'} />
+    }
+
     return (
-        <CreateGroup modules={modules} />
+        <CreateGroup modules={modules} onChange={setGroup} />
     )
 }

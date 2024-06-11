@@ -82,13 +82,13 @@ export default function ModulePage({ modulos }) {
 
     if (createContent) {
       return (
-        <CreateContent />
+        <CreateContent onChange={setCreateContent} />
       )
     }
 
     if(editModule){
       return (
-        <CreateModule />
+        <CreateModule onChange={setEditModule} />
       )
     }
 

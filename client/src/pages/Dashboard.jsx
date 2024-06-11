@@ -39,20 +39,19 @@ export default function PublicarPage(){
 
     if(book){
         return (
-            <CreateModule />
+            <CreateModule onChange={setBook} />
         )
     }
 
     if(group){
         return (
-            <CreateGroup modules={modules} />
+            <CreateGroup modules={modules} onChange={setGroup} />
         )
     }
 
     return (
         <>
-            <Header />
-            <section className="my-auto items-center py-16 lg:py-2 lg:pt-32 px-4 lg:px-0">
+            <section className="my-auto items-center py-8 lg:pt-32 px-4 lg:px-0">
                 
                 <div className='my-16 max-w-7xl mx-auto my-auto'>
                         <h1 className="text-xl font-light leading-tight tracking-tight lg:text-3xl mb-4">

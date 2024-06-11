@@ -24,11 +24,11 @@ function App() {
       <Routes>
         <Route path='/' element={ <Layout /> }>
           <Route index element={ <HomePage /> } />
+          <Route path='/dashboard' element={ <Dashboard /> } />
           <Route path='/modulo/:id' element={ <ModulePage /> } />
           <Route path='/conteudo/:id' element={ <ContentPage /> } />
           <Route path='/edit-group/:id' element={ <EditGroup /> } />
         </Route>
-        <Route path='/dashboard' element={ <Dashboard /> } />
         <Route path='/cadastro' element={ <RegisterPage /> } />
         <Route path='/login' element={ <LoginPage /> } />
       </Routes>

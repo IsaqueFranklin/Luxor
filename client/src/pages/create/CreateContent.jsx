@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import PhotosUploader from '../../components.jsx/PhotosUploader';
 import axios from "axios";
 
-const CreateContent = () => {
+const CreateContent = ({ onChange }) => {
     
     const {ready, user, setUser} = useContext(UserContext);
     const {id} = useParams();
@@ -52,12 +52,15 @@ const CreateContent = () => {
 
     return (
         <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
+            <button onClick={() => onChange(false)} className='btn btn-active'>
+                ⬅️ Voltar
+            </button>
             <form onSubmit={saveContent}>
                 <h2 className='text-2xl mt-4 mb-4'>Título do seu conteúdo</h2>
-                <input type="text" value={contentTitle} onChange={ev => setContentTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
+                <input className="input input-ghost w-full max-w-xs" type="text" value={contentTitle} onChange={ev => setContentTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
 
                 <h2 className='text-2xl mt-12 mb-4'>Descrição do seu conteúdo</h2>
-                <input type="text" value={contentDescription} onChange={ev => setContentDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
+                <input className="input input-ghost w-full max-w-xs" type="text" value={contentDescription} onChange={ev => setContentDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
 
                 <h2 className='text-2xl mt-12 mb-4'>Foto de capa do seu conteúdo</h2>
                 <PhotosUploader addedPhotos={contentAddedPhotos} onChange={setContentAddedPhotos} />
