@@ -115,7 +115,7 @@ function CreateGroup({ modules, onChange }){
                 )) : (<h2 className='mx-auto my-auto font-semibold text-xl mt-4'>Nenhum módulo disponível.</h2>)}
 
                 <div className='mb-10 mt-12'>
-                    <button className='py-2 px-4 w-full rounded rounded-lg bg-[#0047AB] text-white hover:bg-white hover:text-black my-4 mb-20'>{id ?'Editar' : 'Criar'}</button>
+                    <button className={booksArray.length === 0 ? 'btn btn-error py-2 px-4 w-full' : 'btn btn-success py-2 px-4 w-full'}>{id ? (booksArray.length === 0 ? 'Deletar' : 'Editar') : 'Criar'}</button>
                 </div>
             </form>
         </div>

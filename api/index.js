@@ -409,6 +409,10 @@ app.put('/criar-grupo', async (req, res) => {
         const groupDoc = await Group.findById(id);
         if(fullUserDoc?.admin){
             
+            if(booksArray.length === 0){
+                groupDoc.deleteOne();
+            }
+
             groupDoc.set({
                 tag: groupTitle,
                 modulesArray:booksArray
