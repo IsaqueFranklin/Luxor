@@ -399,6 +399,66 @@ app.post('/criar-grupo', async (req, res) => {
     }
 })
 
+app.put('/criar-grupo', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+    const {id, groupTitle, booksArray, booksOutArray, dia} = req.body;
+
+    const fullUserDoc = await User.findById(userData?.id);
+
+    try {
+        const groupDoc = await Group.findById(id);
+        if(fullUserDoc?.admin){
+            
+            groupDoc.set({
+                tag: groupTitle,
+                modulesArray:booksArray
+            })
+
+            const group = await groupDoc.save();
+            res.json(groupDoc);
+
+            try {
+
+                if(fullUserDoc?.admin){
+                    booksArray.map((item) => {  
+                        console.log(item)  
+                        Book.findById(item).then(response => {
+                            console.log(response);
+                            return response.set({ group: group._id, groupTag: groupTitle });
+                        }).then(updatedResponse => {
+                            return updatedResponse.save();
+                        }).then(() => {
+                            console.log('Book updated and saved successfully.');
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                    })
+
+                    booksOutArray.map((item) => {  
+                        console.log(item)  
+                        Book.findById(item).then(response => {
+                            console.log(response);
+                            return response.set({ group: 'padrão', groupTag: '' });
+                        }).then(updatedResponse => {
+                            return updatedResponse.save();
+                        }).then(() => {
+                            console.log('Book updated and saved successfully.');
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                    })
+                }
+                res.json();
+            } catch(err){
+                console.log(err)
+            }
+        }
+    
+    } catch(err){
+        console.log(err)
+    }
+})
+
 app.get('/get-groups', async (req, res) => {
     res.json(await Group.find().sort({dia: -1}).populate('owner', ['username', 'dia']).sort({createdAt: -1}));
 })

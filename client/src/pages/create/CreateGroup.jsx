@@ -11,6 +11,7 @@ function CreateGroup({ modules }){
     const [groupTitle, setGroupTitle] = useState('');
     const [groupId, setGroupId] = useState('');
     const [booksArray, setBooksArray] = useState([]);
+    const [booksOutArray, setBooksOutArray] = useState([]);
 
     const [redirect, setRedirect] = useState(false);
 
@@ -29,13 +30,13 @@ function CreateGroup({ modules }){
         ev.preventDefault();
 
         const groupData = {
-            groupTitle, booksArray, dia:new Date()
+            groupTitle, booksArray, booksOutArray, dia:new Date()
         }
 
         try {
             if(user?.admin){
                 if(id){
-                    await axios.post('/criar-grupo', {
+                    await axios.put('/criar-grupo', {
                         id, ...groupData
                     })
                     setRedirect(true);
@@ -63,6 +64,7 @@ function CreateGroup({ modules }){
             setBooksArray([...booksArray, id])
         } else {
             setBooksArray((prevItems) => prevItems.filter(item => item != id));
+            setBooksOutArray([...booksOutArray, id])
         }
     }
 
@@ -75,7 +77,6 @@ function CreateGroup({ modules }){
     }
 
     const filteredModules = modules.filter(module => module.group === 'padrão' || module.group === null || module.group === '' || module.group === groupId)
-    //const ifChecked = id && module.group === groupId ? true : false;
 
     return (
         <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
@@ -83,14 +84,14 @@ function CreateGroup({ modules }){
                 <h2 className='text-2xl mt-4 mb-4'>Título do seu grupo</h2>
                 <input type="text" value={groupTitle} onChange={ev => setGroupTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
 
-                {filteredModules?.length > 0 &&  filteredModules?.map((module, key) => (
+                {filteredModules?.length > 0 ? filteredModules?.map((module, key) => (
                     <div key={key} className="form-control">
                         <label className="label cursor-pointer">
                             <span className="label-text">{module?.title}</span> 
                             <input onChange={() => handleCheckboxChange(module._id)} type="checkbox" defaultChecked={id && module.group === groupId ? true : false} className="checkbox" />
                         </label>
                     </div>
-                ))}
+                )) : (<h2 className='mx-auto my-auto font-semibold text-xl mt-4'>Nenhum módulo disponível.</h2>)}
 
                 <div className='mb-10 mt-12'>
                     <button className='py-2 px-4 w-full rounded rounded-lg bg-[#0047AB] text-white hover:bg-white hover:text-black my-4 mb-20'>{id ?'Editar' : 'Criar'}</button>

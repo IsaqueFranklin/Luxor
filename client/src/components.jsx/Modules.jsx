@@ -13,7 +13,7 @@ export default function Modules({ modules }){
             {modules?.length > 0 && modules?.map((module, key) => {
                 return(
                     <div key={key}>
-                    <Link to={'/modulo/'+module._id} id={key} className='carousel-item'>
+                    <Link to={'/modulo/'+module._id} id={module._id} className='carousel-item'>
                         <div className="artboard phone-1 relative max-w-xl mx-auto mt-8">
                             <img className="h-full w-full object-cover rounded-md" src={'http://localhost:5000/uploads/'+module.photos?.[0]} alt="Random image" />
                             <div className="absolute inset-0 bg-gray-700 opacity-30 rounded-md"></div>
@@ -33,7 +33,7 @@ export default function Modules({ modules }){
         <div className="flex justify-center w-full py-2 gap-2">
             {modules.length > 0 && modules.map((module, key) => {
                 return (
-                    <a href={"#"+key} key={key} className="btn btn-xs">{key+1}</a> 
+                    <a href={"#"+module._id} key={key} className="btn btn-xs">{key+1}</a> 
                 )
             })}
         </div>
