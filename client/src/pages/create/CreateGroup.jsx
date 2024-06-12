@@ -97,6 +97,12 @@ function CreateGroup({ modules, onChange }){
         document.getElementById('my_modal_3').showModal()
     }
 
+    function problemDialog2(ev){        
+        ev.preventDefault();
+        
+        document.getElementById('my_modal_2').showModal()
+    }
+
     if(redirect){
         if(id){
             return <Navigate to={'/dashboard'} />
@@ -128,7 +134,7 @@ function CreateGroup({ modules, onChange }){
                 <div className="modal-action">
                 <form method="dialog">
                     {/* if there is a button in form, it will close the modal */}
-                    <button className="btn btn-error">Deletar</button>
+                    <button onClick={deleteGroupHandle} className="btn btn-error">Deletar</button>
                     <button className="btn">cancelar</button>
                 </form>
                 </div>
@@ -166,9 +172,9 @@ function CreateGroup({ modules, onChange }){
                         <button className={booksArray.length === 0 ? 'btn btn-error py-2 px-4 w-full' : 'btn btn-success py-2 px-4 w-full'}>{id ? (booksArray.length === 0 ? 'Deletar' : 'Editar') : (booksArray.length === 0 ? 'Selecione algum módulo' : 'Criar')}</button>
                     </div>
             </form>
-                {id ? (
+                {id && booksArray.length > 0 ? (
                     <div className='mb-10 mt-12'>
-                        <button onClick={deleteGroupHandle} className='btn btn-error py-2 px-4 w-full'>Apagar grupo</button>
+                        <button onClick={problemDialog2} className='btn btn-error py-2 px-4 w-full'>Apagar grupo</button>
                     </div>
                 ) : ''}
         </div>
