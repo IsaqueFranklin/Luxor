@@ -57,6 +57,23 @@ function CreateGroup({ modules, onChange }){
 
     }
 
+    async function deleteGroupHandle(ev){
+        ev.preventDefault();
+
+        try {
+            if(user ?.admin){
+                if(id){
+                    await axios.post('/delete-group', {
+                        id, booksArray
+                    })
+                    setRedirect(true);
+                }
+            }
+        } catch(err){
+            console.log(err)
+        }
+    }
+
     function handleCheckboxChange(id){
         const repeated = booksArray.filter(book => book === id)
         console.log(repeated?.length === 0)
@@ -72,6 +89,12 @@ function CreateGroup({ modules, onChange }){
             setBooksArray((prevItems) => prevItems.filter(item => item != id));
             setBooksOutArray([...booksOutArray, id])
         }
+    }
+
+    function problemDialog(ev){        
+        ev.preventDefault();
+        
+        document.getElementById('my_modal_3').showModal()
     }
 
     if(redirect){
@@ -98,10 +121,35 @@ function CreateGroup({ modules, onChange }){
                 </div>
             </div>
             </dialog>
+            <dialog id="my_modal_2" className="modal">
+            <div className="modal-box">
+                <h3 className="font-bold text-lg">Deletar grupo!</h3>
+                <p className="py-4">Tem certeza que você gostaria de deletar esse grupo?</p>
+                <div className="modal-action">
+                <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn btn-error">Deletar</button>
+                    <button className="btn">cancelar</button>
+                </form>
+                </div>
+            </div>
+            </dialog>
+            <dialog id="my_modal_3" className="modal">
+            <div className="modal-box">
+                <h3 className="font-bold text-lg">Erros encontrados!</h3>
+                <p className="py-4">Vocẽ não pode criar um grupo sem títulos ou módulos.</p>
+                <div className="modal-action">
+                <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn">Fechar</button>
+                </form>
+                </div>
+            </div>
+            </dialog>
             <button onClick={() => onChange(false)} className='btn btn-active'>
                 ⬅️ Voltar
             </button>
-            <form onSubmit={createGroupHandle}>
+            <form onSubmit={!id && booksArray.length === 0 ? problemDialog : createGroupHandle}>
                 <h2 className='text-2xl mt-4 mb-4'>Título do seu grupo</h2>
                 <input className="input input-ghost w-full max-w-xs" type="text" value={groupTitle} onChange={ev => setGroupTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
 
@@ -114,10 +162,15 @@ function CreateGroup({ modules, onChange }){
                     </div>
                 )) : (<h2 className='mx-auto my-auto font-semibold text-xl mt-4'>Nenhum módulo disponível.</h2>)}
 
-                <div className='mb-10 mt-12'>
-                    <button className={booksArray.length === 0 ? 'btn btn-error py-2 px-4 w-full' : 'btn btn-success py-2 px-4 w-full'}>{id ? (booksArray.length === 0 ? 'Deletar' : 'Editar') : 'Criar'}</button>
-                </div>
+                    <div className='mb-10 mt-12'>
+                        <button className={booksArray.length === 0 ? 'btn btn-error py-2 px-4 w-full' : 'btn btn-success py-2 px-4 w-full'}>{id ? (booksArray.length === 0 ? 'Deletar' : 'Editar') : (booksArray.length === 0 ? 'Selecione algum módulo' : 'Criar')}</button>
+                    </div>
             </form>
+                {id ? (
+                    <div className='mb-10 mt-12'>
+                        <button onClick={deleteGroupHandle} className='btn btn-error py-2 px-4 w-full'>Apagar grupo</button>
+                    </div>
+                ) : ''}
         </div>
     )
 }

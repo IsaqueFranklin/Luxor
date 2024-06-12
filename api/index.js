@@ -410,34 +410,11 @@ app.put('/criar-grupo', async (req, res) => {
         if(fullUserDoc?.admin){
             
             if(booksArray.length === 0){
-                groupDoc.deleteOne();
-            }
+                console.log('Funcionando.')
+                console.log(groupDoc)
+                await Group.findByIdAndDelete(id);
 
-            groupDoc.set({
-                tag: groupTitle,
-                modulesArray:booksArray
-            })
-
-            const group = await groupDoc.save();
-            res.json(groupDoc);
-
-            try {
-
-                if(fullUserDoc?.admin){
-                    booksArray.map((item) => {  
-                        console.log(item)  
-                        Book.findById(item).then(response => {
-                            console.log(response);
-                            return response.set({ group: group._id, groupTag: groupTitle });
-                        }).then(updatedResponse => {
-                            return updatedResponse.save();
-                        }).then(() => {
-                            console.log('Book updated and saved successfully.');
-                        }).catch(error => {
-                            console.log(error);
-                        });
-                    })
-
+                try {
                     booksOutArray.map((item) => {  
                         console.log(item)  
                         Book.findById(item).then(response => {
@@ -451,15 +428,91 @@ app.put('/criar-grupo', async (req, res) => {
                             console.log(error);
                         });
                     })
+                    res.json();
+                } catch(err){
+                    console.log(err)
                 }
-                res.json();
-            } catch(err){
-                console.log(err)
+            } else {
+                groupDoc.set({
+                    tag: groupTitle,
+                    modulesArray:booksArray
+                })
+    
+                const group = await groupDoc.save();
+                res.json(groupDoc);
+    
+                try {
+    
+                    if(fullUserDoc?.admin){
+                        booksArray.map((item) => {  
+                            console.log(item)  
+                            Book.findById(item).then(response => {
+                                console.log(response);
+                                return response.set({ group: group._id, groupTag: groupTitle });
+                            }).then(updatedResponse => {
+                                return updatedResponse.save();
+                            }).then(() => {
+                                console.log('Book updated and saved successfully.');
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                        })
+    
+                        booksOutArray.map((item) => {  
+                            console.log(item)  
+                            Book.findById(item).then(response => {
+                                console.log(response);
+                                return response.set({ group: 'padrão', groupTag: '' });
+                            }).then(updatedResponse => {
+                                return updatedResponse.save();
+                            }).then(() => {
+                                console.log('Book updated and saved successfully.');
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                        })
+                    }
+                    res.json();
+                } catch(err){
+                    console.log(err)
+                }
             }
         }
     
     } catch(err){
         console.log(err)
+    }
+})
+
+app.post('/delete-group', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+    const {id, booksArray} = req.body;
+
+    const {admin} = await User.findById(userData?.id);
+
+    if(admin){
+        await Group.findByIdAndDelete(id);
+
+    try {
+        booksArray.map((item) => {  
+            console.log(item)  
+            Book.findById(item).then(response => {
+                console.log(response);
+                return response.set({ group: 'padrão', groupTag: '' });
+            }).then(updatedResponse => {
+                return updatedResponse.save();
+            }).then(() => {
+                console.log('Book updated and saved successfully.');
+            }).catch(error => {
+                console.log(error);
+            });
+        })
+        res.json();
+    } catch(err){
+        console.log(err)
+    }
+
+    res.json()
     }
 })
 

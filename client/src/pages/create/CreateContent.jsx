@@ -66,7 +66,7 @@ const CreateContent = ({ onChange }) => {
                 <PhotosUploader addedPhotos={contentAddedPhotos} onChange={setContentAddedPhotos} />
 
                 <div className='mb-10 mt-12'>
-                    <button className='py-2 px-4 w-full rounded rounded-lg bg-[#0047AB] text-white hover:bg-white hover:text-black my-4 mb-20'>Publicar</button>
+                    <button className='btn btn-info py-2 px-4 w-full'>Publicar</button>
                 </div>
             </form>
         </div>
