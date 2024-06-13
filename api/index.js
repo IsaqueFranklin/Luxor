@@ -287,6 +287,30 @@ app.get('/get-book/:id', async (req, res) => {
     res.json(await Book.findById(id))
 })
 
+app.post('/delete-module', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+    const {id, bookGroup} = req.body;
+
+    const {admin} = await User.findById(userData?.id);
+    
+    if(admin){
+        try {
+            await Conteudo.deleteMany({conjunto: id});
+            await Book.findByIdAndDelete(id);
+
+            const todosModulos = await Book.find({group: bookGroup})
+
+            if(todosModulos <= 1){
+                await Group.findByIdAndDelete(modulo.group)
+            }
+
+            res.json()
+        } catch(err){
+            console.log(err)
+        }
+    }
+})
+
 app.post('/criar-conteudo', async (req, res) => {
     const userData = await getUserDataFromReq(req);
 

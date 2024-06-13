@@ -61,7 +61,7 @@ function CreateGroup({ modules, onChange }){
         ev.preventDefault();
 
         try {
-            if(user ?.admin){
+            if(user?.admin){
                 if(id){
                     await axios.post('/delete-group', {
                         id, booksArray

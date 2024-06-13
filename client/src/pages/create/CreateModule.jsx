@@ -38,6 +38,8 @@ export default function CreateModule({ onChange }){
     const [bookDescription, setBookDescription] = useState('');
     const [bookAddedPhotos, setBookAddedPhotos] = useState([]);
 
+    const [bookGroup, setBookGroup] = useState('')
+
     useEffect(() => {
         if(!id){
             return
@@ -49,6 +51,7 @@ export default function CreateModule({ onChange }){
             setBookTitle(data.title)
             setBookDescription(data.description)
             setBookAddedPhotos(data.photos)
+            setBookGroup(data.group)
         })
 
     }, [id])
@@ -83,6 +86,23 @@ export default function CreateModule({ onChange }){
 
     }
 
+    async function deleteModuleHandle(ev){
+        ev.preventDefault();
+
+        try {
+            if(user?.admin){
+                if(id){
+                    await axios.post('/delete-module', {
+                        id, bookGroup
+                    })
+                    //setRedirect(true);
+                }
+            }
+        } catch(err){
+            console.log(err)
+        }
+    }
+
     function deleteDialog(ev){
         ev.preventDefault()
 
@@ -113,7 +133,7 @@ export default function CreateModule({ onChange }){
                 <form method="dialog">
                     {/* if there is a button in form, it will close the modal */}
                     <div className='flex gap-4'>
-                        <button className="btn btn-error">Deletar</button>
+                        <button onClick={deleteModuleHandle} className="btn btn-error">Deletar</button>
                         <button className="btn">cancelar</button>
                     </div>
                 </form>
