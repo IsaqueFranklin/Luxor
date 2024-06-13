@@ -83,6 +83,18 @@ export default function CreateModule({ onChange }){
 
     }
 
+    function deleteDialog(ev){
+        ev.preventDefault()
+
+        document.getElementById('delete_modal').showModal()
+    }
+
+    function errorDialog(ev){
+        ev.preventDefault()
+
+        document.getElementById('error_modal').showModal()
+    }
+
     if(ready && !user){
         return <Navigate to={'/cadastro'} />
     }
@@ -93,10 +105,37 @@ export default function CreateModule({ onChange }){
 
     return (
         <div className='my-auto mx-auto items-center py-8 lg:pt-32 max-w-4xl px-8'>
+            <dialog id="delete_modal" className="modal">
+            <div className="modal-box">
+                <h3 className="font-bold text-lg">Tem certeza que deseja deletar esse módulo?</h3>
+                <p className="py-4">Se você deletar esse módulo, todos os conteúdos pertencentes a ele também serão deletados.</p>
+                <div className="modal-action">
+                <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <div className='flex gap-4'>
+                        <button className="btn btn-error">Deletar</button>
+                        <button className="btn">cancelar</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            </dialog>
+            <dialog id="error_modal" className="modal">
+            <div className="modal-box">
+                <h3 className="font-bold text-lg">Seu módulo não possui título ou descrição.</h3>
+                <p className="py-4">Para publicar um módulo adicione no mínimo um título e uma descrição.</p>
+                <div className="modal-action">
+                <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn">Entendido</button>
+                </form>
+                </div>
+            </div>
+            </dialog>
             <button onClick={() => onChange(false)} className='btn btn-active'>
             ⬅️ Voltar
             </button>
-        <form onSubmit={saveBook}>
+        <form onSubmit={bookTitle === '' && bookDescription === '' ? errorDialog : saveBook}>
             <h2 className='text-2xl mt-4 mb-4'>Título do seu book</h2>
             <input className="input input-ghost w-full max-w-xs" type="text" value={bookTitle} onChange={ev => setBookTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
 
@@ -107,9 +146,12 @@ export default function CreateModule({ onChange }){
                     <PhotosUploader addedPhotos={bookAddedPhotos} onChange={setBookAddedPhotos} />
 
                     <div className='mb-10 mt-12'>
-                        <button className='btn btn-info py-2 px-4 w-full'>Publicar</button>
+                        <button className={bookTitle === '' && bookDescription === '' ? 'btn btn-error py-2 px-4 w-full' : 'btn btn-info py-2 px-4 w-full'}>{bookTitle === '' && bookDescription === '' ? 'Adione um título e descrição' : 'Publicar'}</button>
                     </div>
                 </form>
+                {id ? (
+                    <button className="btn btn-error py-2 px-4 w-full" onClick={deleteDialog}>Apagar módulo</button>
+                ) : ''}
         </div>
     )
 }

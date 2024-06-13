@@ -134,8 +134,10 @@ function CreateGroup({ modules, onChange }){
                 <div className="modal-action">
                 <form method="dialog">
                     {/* if there is a button in form, it will close the modal */}
-                    <button onClick={deleteGroupHandle} className="btn btn-error">Deletar</button>
-                    <button className="btn">cancelar</button>
+                    <div className='flex gap-4'>
+                        <button onClick={deleteGroupHandle} className="btn btn-error">Deletar</button>
+                        <button className="btn">cancelar</button>
+                    </div>
                 </form>
                 </div>
             </div>

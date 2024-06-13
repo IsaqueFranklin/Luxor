@@ -94,16 +94,14 @@ export default function ModulePage({ modulos }) {
 
     return (
         <div className='my-auto items-center py-16 lg:py-2 lg:pt-32 px-4 lg:px-0'>
-
         <div className='my-16 max-w-7xl mx-auto my-auto'>
                         <h1 className="text-xl font-light leading-tight tracking-tight lg:text-3xl mb-4">
                             Qual tipo de publicação deseja criar?
                         </h1>
-                        <div className="w-full rounded-lg md:mt-0 sm:max-w-md xl:p-0 flex gap-4">
+                        <div className="w-full rounded-lg sm:max-w-md xl:p-0 flex gap-4">
                             <Link><button onClick={() => setCreateContent(true)} type="submit" className="btn btn-success">Novo conteúdo</button></Link>
                             <button onClick={() => setEditModule(true)} type="submit" className="btn btn-active">Editar módulo</button>
                         </div>
-                        <h2></h2>
                         <Contents contents={contents} />
                 </div>
         </div>
