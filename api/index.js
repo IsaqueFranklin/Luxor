@@ -301,7 +301,7 @@ app.post('/delete-module', async (req, res) => {
             const todosModulos = await Book.find({group: bookGroup})
 
             if(todosModulos <= 1){
-                await Group.findByIdAndDelete(modulo.group)
+                await Group.findByIdAndDelete(bookGroup)
             }
 
             res.json()

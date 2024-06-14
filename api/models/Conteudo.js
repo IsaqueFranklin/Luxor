@@ -7,11 +7,11 @@ const ConteudoSchema = new Schema({
     description: String,
     content: String,
     photos: [String],
-    video: String, //Link do vídeo do youtube para embed
+    videoUrl: String,
+    pdfURl: String, //Link do vídeo do youtube para embed
     dia: Date,
     modific: Date,
     coments: [String],
-    likes: [String],
     index: Number,
     conjunto: {type: mongoose.Schema.Types.ObjectId, ref:'Book'},
 })

@@ -40,7 +40,7 @@ export default function ModulePage({ modulos }) {
     const [seeContents, setSeeContents] = useState(false);
     const [contents, setContents] = useState([]);
 
-    const [wichBook, setWichBook] = useState(null);
+    const [goBack, setGoBack] = useState(false);
 
     const [contentTitle, setContentTitle] = useState('');
     const [contentDescription, setContentDescription] = useState('');
@@ -81,29 +81,34 @@ export default function ModulePage({ modulos }) {
     }
 
     if (createContent) {
-      return (
-        <CreateContent onChange={setCreateContent} />
-      )
+      return <CreateContent onChange={setCreateContent} />
     }
 
     if(editModule){
-      return (
-        <CreateModule onChange={setEditModule} />
-      )
+      return <CreateModule onChange={setEditModule} />
+    }
+
+    if(goBack){
+        return <Navigate to={'/dashboard'} />
     }
 
     return (
-        <div className='my-auto items-center py-16 lg:py-2 lg:pt-32 px-4 lg:px-0'>
-        <div className='my-16 max-w-7xl mx-auto my-auto'>
-                        <h1 className="text-xl font-light leading-tight tracking-tight lg:text-3xl mb-4">
-                            Qual tipo de publicação deseja criar?
-                        </h1>
-                        <div className="w-full rounded-lg sm:max-w-md xl:p-0 flex gap-4">
-                            <Link><button onClick={() => setCreateContent(true)} type="submit" className="btn btn-success">Novo conteúdo</button></Link>
-                            <button onClick={() => setEditModule(true)} type="submit" className="btn btn-active">Editar módulo</button>
-                        </div>
-                        <Contents contents={contents} />
+        <div className='my-auto items-center py-8 lg:pt-32 px-4 lg:px-0'>
+            <div className='my-16 max-w-7xl mx-auto my-auto'>
+                <button onClick={() => setGoBack(true)} className='btn btn-active'>
+                    ⬅️ Voltar
+                </button>
+                <div className='mt-8'>
+                    <h1 className="text-xl font-light leading-tight tracking-tight lg:text-3xl mb-4">
+                        Qual tipo de publicação deseja criar?
+                    </h1>
+                    <div className="w-full rounded-lg sm:max-w-md xl:p-0 flex gap-4">
+                        <Link><button onClick={() => setCreateContent(true)} type="submit" className="btn btn-success">Novo conteúdo</button></Link>
+                        <button onClick={() => setEditModule(true)} type="submit" className="btn btn-active">Editar módulo</button>
+                    </div>
+                    <Contents contents={contents} />
                 </div>
+            </div>
         </div>
     )
 }

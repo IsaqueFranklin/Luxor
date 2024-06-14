@@ -32,6 +32,7 @@ export default function CreateModule({ onChange }){
     const {id} = useParams();
 
     const [redirect, setRedirect] = useState(false);
+    const [redirectDash, setRedirectDash] = useState(false);
 
     //States for books
     const [bookTitle, setBookTitle] = useState('');
@@ -95,7 +96,7 @@ export default function CreateModule({ onChange }){
                     await axios.post('/delete-module', {
                         id, bookGroup
                     })
-                    //setRedirect(true);
+                    setRedirectDash(true);
                 }
             }
         } catch(err){
@@ -121,6 +122,10 @@ export default function CreateModule({ onChange }){
 
     if(redirect){
         window.location.reload()
+    }
+
+    if(redirectDash){
+        return <Navigate to={'/dashboard'} />
     }
 
     return (

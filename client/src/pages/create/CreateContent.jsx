@@ -62,6 +62,9 @@ const CreateContent = ({ onChange }) => {
                 <h2 className='text-2xl mt-12 mb-4'>Descrição do seu conteúdo</h2>
                 <input className="input input-ghost w-full max-w-xs" type="text" value={contentDescription} onChange={ev => setContentDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
 
+                <h2 className='text-2xl mt-12 mb-4'>Link do vídeo</h2>
+                <input className="input input-ghost w-full max-w-xs" type="text" value={contentDescription} onChange={ev => setContentDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
+
                 <h2 className='text-2xl mt-12 mb-4'>Foto de capa do seu conteúdo</h2>
                 <PhotosUploader addedPhotos={contentAddedPhotos} onChange={setContentAddedPhotos} />
 
