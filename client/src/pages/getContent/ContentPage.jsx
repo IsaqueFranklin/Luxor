@@ -42,12 +42,14 @@ const ContentPage = () => {
   return (
     <div className='my-auto items-center py-8 lg:pt-16 px-4 lg:px-0'>
       <div className='my-16 max-w-5xl mx-auto my-auto'>
-        <button onClick={() => setGoBack(true)} className='btn btn-active'>
-          ⬅️ Voltar
-        </button>
-        <button onClick={() => setCreateQuiz(true)} className='btn btn-neutral'>
-          Criar Quiz
-        </button>
+        <div className='inline-flex gap-4'>
+          <button onClick={() => setGoBack(true)} className='btn btn-active'>
+            ⬅️ Voltar
+          </button>
+          <button onClick={() => setCreateQuiz(true)} className='btn btn-success'>
+            Criar Quiz
+          </button>
+        </div>
         <div className='py-6'>
           <h2 className='text-3xl'>{title}</h2>
           <p>{description}</p>

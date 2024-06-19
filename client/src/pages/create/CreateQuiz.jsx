@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { UserContext } from '../../UserContext'
 import { useParams } from 'react-router-dom'
+import axios from "axios";
 
 const CreateQuiz = () => {
 
@@ -12,22 +13,35 @@ const CreateQuiz = () => {
 
     const [startMakingQuiz, setStartMakingQuiz] = useState(false);
     const [howMany, setHowMany] = useState(0);
-    const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState(1);
 
     const [questionStatement, setQuestionStatement] = useState('');
     const [questionOptions, setQuestionOptions] = useState([]);
     const [correctOption, setCorrectOption] = useState('');
 
+    const [questions, setQuestions] = useState([]);
+
     function handleQuestionCounter(ev){
         ev.preventDefault();
 
         if(counter != howMany && counter < howMany){
-            setCounter(counter+1);
-            
+            const newCounter = counter + 1
+            setCounter(newCounter);
+            //console.log(newCounter, howMany)
         }
 
         if(counter === howMany){
             console.log('concluir')
+            
+            setQuestions(prev => {
+                const newQuestionJson = {
+                    statement: questionStatement,
+                    options: questionOptions,
+                    correctOption: correctOption,
+                }
+
+                return [...prev, newQuestionJson]
+            })
         }
     }
 
@@ -50,7 +64,7 @@ const CreateQuiz = () => {
     if(startMakingQuiz){
         return (
             <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
-                <h2 className='text-2xl mt-12 mb-4'>Pergunta {counter+1} do seu Quiz</h2>
+                <h2 className='text-2xl mt-12 mb-4'>Pergunta {counter} do seu Quiz</h2>
                 <input type="text" placeholder="Type here" className="input input-ghost w-full max-w-xs" value={questionStatement} onChange={ev => setQuestionStatement(ev.target.value)} />
 
                 <h2 className='text-2xl mt-12 mb-4'>Adicione suas alternativas</h2>
@@ -61,7 +75,7 @@ const CreateQuiz = () => {
                 <button className='btn btn-neutral' onClick={addOption}>Add Option</button>
 
                 <div className='mb-10 mt-12'>
-                    <button onClick={handleQuestionCounter} className='btn btn-info py-2 px-4 w-full'>{counter === howMany ? 'Finalizar' : 'Continuar'}</button>
+                    <button onClick={handleQuestionCounter} className='btn btn-info py-2 px-4 w-full'>{counter != howMany ? 'Continuar' : 'Finalizar'}</button>
                 </div>
             </div>
         )
@@ -81,7 +95,7 @@ const CreateQuiz = () => {
 
 
                 <h2 className='text-2xl mt-12 mb-4'>Quantas questões terão o seu Quiz</h2>
-                <input type="text" placeholder="Type here" className="input input-ghost w-full max-w-xs" value={howMany} onChange={ev => setHowMany(ev.target.value)} />
+                <input type="number" placeholder="Type here" className="input input-ghost w-full max-w-xs" value={howMany} onChange={ev => setHowMany(ev.target.value)} />
 
 
                 <div className='mb-10 mt-12'>
