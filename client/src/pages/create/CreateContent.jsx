@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../UserContext';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import PhotosUploader from '../../components.jsx/PhotosUploader';
 import axios from "axios";
 import PdfUploader from '../../components.jsx/PdfUploader';
@@ -9,6 +9,7 @@ const CreateContent = ({ onChange }) => {
     
     const {ready, user, setUser} = useContext(UserContext);
     const {id} = useParams();
+    const location = useLocation()
 
     const [contentTitle, setContentTitle] = useState('');
     const [contentDescription, setContentDescription] = useState('');
@@ -19,6 +20,25 @@ const CreateContent = ({ onChange }) => {
 
     const [redirect, setRedirect] = useState(false);
 
+    useEffect(() => {
+        if(!id){
+            return
+        }
+
+        axios.get('/content/'+id).then(response => {
+
+            const {data} = response;
+            setContentTitle(data.title)
+            setContentDescription(data.description)
+            setContentContent(data.content)
+            setContentAddedPhotos(data.photos)
+            setVideoUrl(data.videoUrl)
+            setPdfUrl(data.pdfUrl)
+            console.log(location.pathname === '/conteudo/'+id)
+        })
+
+    }, [id])
+
     async function saveContent(ev){
         ev.preventDefault();
 
@@ -28,14 +48,14 @@ const CreateContent = ({ onChange }) => {
 
         try {
             if(user?.admin){
-                if(id){
-                    await axios.post('/criar-conteudo', {
+                if(id && location.pathname === '/conteudo/'+id){
+                    await axios.put('/criar-conteudo', {
                         id, ...conteudoPostData
                     })
                     setRedirect(true);
                 } else {
                     await axios.post('/criar-conteudo', {
-                        ...conteudoPostData
+                        id, ...conteudoPostData
                     })
                     setRedirect(true);
                 }

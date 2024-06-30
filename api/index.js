@@ -15,6 +15,7 @@ const imageDownloader = require('image-downloader');
 const multer = require('multer');
 const Group = require('./models/Group');
 require('dotenv').config();
+const mime = require('mime-types');
 
 const app = express();
 
