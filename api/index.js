@@ -332,7 +332,7 @@ app.post('/delete-module', async (req, res) => {
 app.post('/criar-conteudo', async (req, res) => {
     const userData = await getUserDataFromReq(req);
 
-    const {contentTitle, contentDescription, contentAddedPhotos, contentContent, dia, id} = req.body;
+    const {contentTitle, contentDescription, contentAddedPhotos, contentContent, videoUrl, pdfUrl, dia, id} = req.body;
 
     const {admin} = await User.findById(userData.id);
 
@@ -345,6 +345,8 @@ app.post('/criar-conteudo', async (req, res) => {
                 title:contentTitle,
                 description:contentDescription,
                 content: contentContent,
+                videoUrl: videoUrl,
+                pdfUrl: pdfUrl,
                 photos:contentAddedPhotos,
                 dia,
                 owner:userData.id,
@@ -362,7 +364,7 @@ app.post('/criar-conteudo', async (req, res) => {
 app.put('/criar-conteudo', async (req, res) => {
     const userData = await getUserDataFromReq(req);
 
-    const {contentTitle, contentDescription, contentAddedPhotos, contentContent, dia, id} = req.body;
+    const {contentTitle, contentDescription, contentAddedPhotos, contentContent, videoUrl, pdfUrl, dia, id} = req.body;
 
     const {admin} = await User.findById(userData.id);
 
@@ -376,6 +378,8 @@ app.put('/criar-conteudo', async (req, res) => {
                     description:contentDescription,
                     content: contentContent,
                     photos:contentAddedPhotos,
+                    videoUrl: videoUrl,
+                    pdfUrl: pdfUrl,
                 })
 
                 await postDoc.save();

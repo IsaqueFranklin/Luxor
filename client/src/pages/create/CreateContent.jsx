@@ -3,6 +3,7 @@ import { UserContext } from '../../UserContext';
 import { useParams } from 'react-router-dom';
 import PhotosUploader from '../../components.jsx/PhotosUploader';
 import axios from "axios";
+import PdfUploader from '../../components.jsx/PdfUploader';
 
 const CreateContent = ({ onChange }) => {
     
@@ -13,6 +14,8 @@ const CreateContent = ({ onChange }) => {
     const [contentDescription, setContentDescription] = useState('');
     const [contentContent, setContentContent] = useState('')
     const [contentAddedPhotos, setContentAddedPhotos] = useState([]);
+    const [videoUrl, setVideoUrl] = useState('');
+    const [pdfUrl, setPdfUrl] = useState('');
 
     const [redirect, setRedirect] = useState(false);
 
@@ -63,7 +66,10 @@ const CreateContent = ({ onChange }) => {
                 <input className="input input-ghost w-full max-w-xs" type="text" value={contentDescription} onChange={ev => setContentDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
 
                 <h2 className='text-2xl mt-12 mb-4'>Link do vídeo</h2>
-                <input className="input input-ghost w-full max-w-xs" type="text" value={contentDescription} onChange={ev => setContentDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
+                <input className="input input-ghost w-full" type="text" value={videoUrl} onChange={ev => setVideoUrl(ev.target.value)} placeholder='Um descrição de abrir a boca...' />
+
+                <h2 className='text-2xl mt-12 mb-4'>Adicione o PDF</h2>
+                <PdfUploader addedPhotos={pdfUrl} onChange={setPdfUrl} />  
 
                 <h2 className='text-2xl mt-12 mb-4'>Foto de capa do seu conteúdo</h2>
                 <PhotosUploader addedPhotos={contentAddedPhotos} onChange={setContentAddedPhotos} />
