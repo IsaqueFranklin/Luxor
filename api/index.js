@@ -204,8 +204,13 @@ app.get('/profile', (req, res) => {
         if (token) {
             jwt.verify(token, jwtSecret, {}, async (err, userData) => {
                 if (err) throw err;
-                const {name, username, photo, email, _id, following, followers, admin} = await User.findById(userData.id);
-                res.json({name, username, photo, email, _id, following, followers, admin});
+                const userTrue = await User.findById(userData.id);
+                if(userTrue){
+                    const {name, username, photo, email, _id, admin} = await User.findById(userData.id);
+                    res.json({name, username, photo, email, _id, admin});
+                } else {
+                    res.json(null);
+                }
             })
         } else {
             res.json(null)
