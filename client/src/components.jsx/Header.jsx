@@ -32,11 +32,20 @@ const Header = () => {
                 </div> 
                 <div className="drawer-side">
                   <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-                  <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                    {/* Sidebar content here */}
-                    <li><a>Sidebar Item 1</a></li>
-                    <li><a>Sidebar Item 2</a></li>
+                  <ul className="menu p-4 w-60 lg:w-80 min-h-full bg-base-200 text-base-content">
+                    <div className='mx-auto text-center items-center my-8'>
+                      <div className='btn btn-ghost btn-circle avatar w-16 h-16'>
+                        <img src='https://dudewipes.com/cdn/shop/articles/gigachad.jpg?v=1667928905&width=2048' className='rounded-full w-48 bg-gray-300' />
+                      </div>
+                      <h2 className='mt-4 text-lg font-semibold'>{user.username}</h2>
+                      <h2>{user?.email}</h2>
+                    </div>
                     
+                    {/* Sidebar content here */}
+                    <li className='font-semibold text-xl'><a>Perfil</a></li>
+                    <li className='font-semibold text-xl'><a href='/dashboard'>Dashboard</a></li>
+                    <li className='font-semibold text-xl'><a>Suporte</a></li>
+                    <li className='font-semibold text-xl'><a>Sair</a></li>
                   </ul>
                 </div>
               </div>
@@ -44,7 +53,7 @@ const Header = () => {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl">Luxor</a>
+        <a className="btn btn-ghost text-xl font-semibold" href="/">Luxor</a>
       </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">

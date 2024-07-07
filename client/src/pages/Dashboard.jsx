@@ -54,13 +54,17 @@ export default function PublicarPage(){
             <section className="my-auto items-center py-8 lg:pt-32 px-4 lg:px-0">
                 
                 <div className='my-16 max-w-7xl mx-auto my-auto'>
+                {user?.admin && (
+                    <div>
                         <h1 className="text-xl font-light leading-tight tracking-tight lg:text-3xl mb-4">
                             Qual tipo de publicação deseja criar?
                         </h1>
                         <div className="w-full rounded-lg sm:max-w-md xl:p-0 flex gap-4">
-                            <Link><button onClick={() => setBook(true)} type="submit" className="btn btn-success">Criar módulo</button></Link>
-                            <Link><button onClick={() => setGroup(true)} type="submit" className="btn btn-success">Criar grupo</button></Link>
+                            <Link><button onClick={() => setBook(true)} type="submit" className="btn bg-blue-600 text-white">Criar módulo</button></Link>
+                            <Link><button onClick={() => setGroup(true)} type="submit" className="btn bg-blue-600 text-white">Criar grupo</button></Link>
                         </div>
+                    </div>
+                )}
                     {groups?.length > 0 && groups?.map((group, key) => (
                         <Modules modules={modules.filter(module => module.group === group._id)} key={key} />
                     ))}

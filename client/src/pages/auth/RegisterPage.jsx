@@ -91,20 +91,19 @@ export default function RegisterPage(){
             <section className="bg-white my-auto itesm-center mt-48 lg:mt-0">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900">
-                    <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
-                    N54 Club    
+                    Luxor Learning
                 </a>
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 ">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+                        <h1 className="text-xl font-semibold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                             Um código foi enviado para o seu email
                         </h1>
                         <form onSubmit={registerUser} className="space-y-4 md:space-y-6" method="POST">
                             <div>
-                                <label for="email" className="block mb-2 text-sm font-medium text-gray-900 ">Digite o código</label>
+                                <label for="code" className="block mb-2 text-sm font-medium text-gray-900 ">Digite o código</label>
                                 <input value={code} onChange={ev => setCode(ev.target.value)} type="number" name="code" id="code" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Exemplo: 123456" required="" />
                             </div>
-                            <button type="submit" className="w-full text-white bg-gray-800 hover:bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
+                            <button type="submit" className="w-full text-white bg-blue-600 hover:bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
                         </form>
                     </div>
                 </div>
@@ -115,43 +114,45 @@ export default function RegisterPage(){
 
     return (
         <div className="lg:grid lg:grid-cols-2">
-            <div className="bg-gray-900 text-white">
-                <div className="p-12 lg:px-56 lg:py-56">
-                    <h2 className="text-2xl lg:text-4xl mt-8 lg:mt-0 font-semibold mx-auto my-auto items-center">O clube de networking e negócios que você precisa.</h2>
-                    <h2 className='text-xl font-light mt-4'>Aprenda de forma exclusiva os principais segredos de marketing digital do mercado para alavancar seus negócios online.</h2>
-                </div>
+            <div className="hidden lg:block bg-blue-700 text-white h-full">
+                <section className="my-auto items-center h-full">
+                    <div className="p-12 lg:px-24 2xl:px-56 lg:py-24 2xl:py-48">
+                        <h2 className="text-2xl lg:text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 py-2">Uma experiência de aprendizado fantástica.</h2>
+                        <h2 className='text-xl font-light mt-4 mb-6'>Uma experiência de aprendizado divertida e envolvente para dominar a gramática com facilidade e alegria. Transforme seus estudos em uma aventura!</h2>
+                        <img className='rounded-lg' src="https://i.pinimg.com/originals/a0/33/f8/a033f8df5b9bb3d6ec94e09249f3b3d4.gif" alt="snoopy" />
+                    </div>
+                </section>
             </div>
-            <section className="bg-white">
+            <section className="">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900">
-                    <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
-                    N54 Club    
+                    Luxor Learning
                 </a>
-                <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 ">
+                <div className="w-full  rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 ">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-                            Faça parte da N54 Club
+                        <h1 className="text-2xl font-medium leading-tight tracking-tight text-gray-900 md:text-2xl ">
+                            Comece a usar a Luxor
                         </h1>
                         <form onSubmit={verify_Email} className="space-y-4 md:space-y-6" method="POST">
                             <div>
-                                <label for="email" className="block mb-2 text-sm font-medium text-gray-900 ">Seu nome</label>
-                                <input value={name} onChange={ev => setName(ev.target.value)} type="name" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Fulano da Silva" required="" />
+                                <label for="name" className="block mb-2 text-sm font-medium text-gray-900 ">Seu nome</label>
+                                <input value={name} onChange={ev => setName(ev.target.value)} type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Fulano da Silva" required="" />
                             </div>
                             <div>
                                 <label for="email" className="block mb-2 text-sm font-medium text-gray-900 ">Seu email</label>
-                                <input value={email} onChange={ev => setEmail(ev.target.value)} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="fulano@algumacoisa.com" required="" />
+                                <input value={email} onChange={ev => setEmail(ev.target.value)} type="text" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="fulano@algumacoisa.com" required="" />
                             </div>
                             <div>
-                                <label for="email" className="block mb-2 text-sm font-medium text-gray-900 ">Seu nome de usuário</label>
-                                <input value={username} onChange={ev => setUsername(ev.target.value)} type="name" name="username" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="fulanodasilva" required="" />
+                                <label for="username" className="block mb-2 text-sm font-medium text-gray-900 ">Seu nome de usuário</label>
+                                <input value={username} onChange={ev => setUsername(ev.target.value)} type="text" name="username" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="fulanodasilva" required="" />
                             </div>
                             <div>
                                 <label for="password" className="block mb-2 text-sm font-medium text-gray-900 ">Sua senha</label>
                                 <input value={password} onChange={ev => setPassword(ev.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="" />
                             </div>
-                            <button type="submit" className="w-full text-white bg-gray-800 hover:bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Criar conta</button>
+                            <button type="submit" className="w-full text-white bg-blue-600 hover:bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Criar conta</button>
                             <p className="text-sm font-light text-gray-600">
-                                Já tem uma conta ativat? <a href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Fazer login</a>
+                                Já tem uma conta ativa? <a href="/login" className="font-medium text-blue-600 hover:underline dark:text-primary-500">Fazer login</a>
                             </p>
                         </form>
                     </div>
@@ -159,5 +160,6 @@ export default function RegisterPage(){
             </div>
             </section>
         </div>
+        
     )
 }

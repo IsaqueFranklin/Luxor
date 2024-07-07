@@ -103,8 +103,8 @@ export default function ModulePage({ modulos }) {
                         Qual tipo de publicação deseja criar?
                     </h1>
                     <div className="w-full rounded-lg sm:max-w-md xl:p-0 flex gap-4">
-                        <Link><button onClick={() => setCreateContent(true)} type="submit" className="btn btn-success">Novo conteúdo</button></Link>
-                        <button onClick={() => setEditModule(true)} type="submit" className="btn btn-active">Editar módulo</button>
+                        <Link><button onClick={() => setCreateContent(true)} type="submit" className="btn bg-blue-600 text-white">Novo conteúdo</button></Link>
+                        <button onClick={() => setEditModule(true)} type="submit" className="btn bg-blue-600 text-white">Editar módulo</button>
                     </div>
                     <Contents contents={contents} />
                 </div>

@@ -12,7 +12,7 @@ const CreateQuiz = () => {
     const [quizDescription, setQuizDescription] = useState('');
 
     const [startMakingQuiz, setStartMakingQuiz] = useState(false);
-    const [howMany, setHowMany] = useState(0);
+    const [howMany, setHowMany] = useState(1);
     const [counter, setCounter] = useState(0);
 
     const [questionStatement, setQuestionStatement] = useState('');
