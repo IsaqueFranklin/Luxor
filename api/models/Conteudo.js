@@ -37,7 +37,7 @@ const ConteudoSchema = new Schema({
     content: String,
     photos: [String],
     videoUrl: String,
-    pdfURl: [String], //Link do vídeo do youtube para embed
+    pdfUrl: [String], //Link do vídeo do youtube para embed
     dia: Date,
     modific: Date,
     coments: [String],

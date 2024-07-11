@@ -32,7 +32,7 @@ const ContentPage = () => {
       setDescription(data.description)
       setContent(data.content)
       setVideoUrl(data.videoUrl)
-      setPdfUrl(data.pdfURl)
+      setPdfUrl(data.pdfUrl)
       setConjunto(data.conjunto)
     })
   }, [editContent])
