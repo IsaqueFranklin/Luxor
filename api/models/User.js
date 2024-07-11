@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     bio: String,
     instagram: String,
     password: String,
-    fullUser: {type: Boolean, default: false},
+    fullUser: {type: Boolean, default: true},
 })
 
 const UserModel = mongoose.model('User', UserSchema);

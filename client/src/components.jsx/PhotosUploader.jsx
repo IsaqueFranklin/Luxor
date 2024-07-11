@@ -51,8 +51,8 @@ export default function PhotosUploader({addedPhotos, onChange}){
     return (
         <>
                         <div className='flex gap-2'>
-                            <input className="input input-ghost w-full max-w-xs" value={photoLink} onChange={ev => setPhotoLink(ev.target.value)} type='text' placeholder='Add using a link ... jpg' />
-                            <button onClick={addPhotoByLink} className='btn btn-info'>Add&nbsp;photo</button>
+                            <input className="input input-bordered w-full" value={photoLink} onChange={ev => setPhotoLink(ev.target.value)} type='text' placeholder='Add using a link ... jpg' />
+                            <button onClick={addPhotoByLink} className='btn bg-blue-600 text-white'>Add&nbsp;photo</button>
                         </div>
                         
                         <div className='mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>

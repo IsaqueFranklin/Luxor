@@ -46,7 +46,7 @@ const ContentPage = () => {
   }
 
   if(createQuiz){
-    return <CreateQuiz />
+    return <CreateQuiz onChange={setCreateQuiz} />
   }
 
   return (
@@ -66,8 +66,8 @@ const ContentPage = () => {
           )}
         </div>
         <div className='pt-6 md:py-6'>
-          <h2 className='text-3xl'>{title}</h2>
-          <p>{description}</p>
+          <h2 className='text-2xl md:text-4xl'>{title}</h2>
+          <p className='mt-4'>{description}</p>
         </div>
         {videoUrl ? (
           <div className="overflow-hidden relative pb-[56%] rounded-2xl mb-16s">

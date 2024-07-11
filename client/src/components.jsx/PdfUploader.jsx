@@ -51,8 +51,8 @@ export default function PdfUploader({addedPhotos, onChange}){
     return (
         <>
                         <div className='flex gap-2'>
-                            <input className="input input-ghost w-full max-w-xs" value={photoLink} onChange={ev => setPhotoLink(ev.target.value)} type='text' placeholder='Add pdf using a link...' />
-                            <button onClick={addPhotoByLink} className='btn btn-info'>adicione&nbsp;pdf</button>
+                            <input className="input input-bordered w-full" value={photoLink} onChange={ev => setPhotoLink(ev.target.value)} type='text' placeholder='Add pdf using a link...' />
+                            <button onClick={addPhotoByLink} className='btn bg-blue-600 text-white'>adicione&nbsp;pdf</button>
                         </div>
                         
                         <div className='mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>

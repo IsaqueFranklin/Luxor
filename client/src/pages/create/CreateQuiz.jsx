@@ -3,7 +3,7 @@ import { UserContext } from '../../UserContext'
 import { useParams } from 'react-router-dom'
 import axios from "axios";
 
-const CreateQuiz = () => {
+const CreateQuiz = ({onChange}) => {
 
     const {ready, user} = useContext(UserContext)
     const {id} = useParams();
@@ -12,6 +12,8 @@ const CreateQuiz = () => {
     const [quizDescription, setQuizDescription] = useState('');
 
     const [startMakingQuiz, setStartMakingQuiz] = useState(false);
+    const [finishQuiz, setFinishQuiz] = useState(false);
+
     const [howMany, setHowMany] = useState(1);
     const [counter, setCounter] = useState(0);
 
@@ -46,6 +48,7 @@ const CreateQuiz = () => {
         } else if(counter === howMany-1){
             console.log('concluir')
             setStartMakingQuiz(false);
+            setFinishQuiz(true);
         }
 
 
@@ -70,23 +73,39 @@ const CreateQuiz = () => {
         setQuestionOptions([...questionOptions, '']);
     };
 
-    if(startMakingQuiz){
+    if(finishQuiz){
         return (
             <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
-                <h2 className='text-2xl mt-12 mb-4'>Pergunta {counter+1} do seu Quiz</h2>
-                <input type="text" placeholder="Type here" className="input input-ghost w-full" value={questionStatement} onChange={ev => setQuestionStatement(ev.target.value)} />
-
-                <h2 className='text-2xl mt-12 mb-4'>Adicione suas alternativas</h2>
-                <div>
-                    {questionOptions.map((option, index) => (
-                        <input type="text" key={index} value={option} onChange={ev => handleChange(ev, index)} placeholder="Type here" className="input input-ghost w-full mt-4" />
-                    ))} 
+                <h2 className='text-2xl mt-12 mb-4'>Revise seu Quiz</h2>
+                <div className='border border-1 border-blue-700 shadow-lg rounded-lg p-4'>
+                    <span className='text-sm mb-2'>Título:</span>
+                    <h3 className='text-2xl font-semibold mb-4'>{quizTitle}</h3>
+                    <span className='text-sm mb-2'>Descrição:</span>
+                    <p className='font-medium'>{quizDescription}</p>
                 </div>
-                
-                <button className='btn btn-neutral mt-6' onClick={addOption}>Add Option</button>
+            </div>
+        )
+    }
 
-                <div className='mb-10 mt-12'>
-                    <button onClick={handleQuestionCounter} className='btn btn-info py-2 px-4 w-full'>{counter != howMany-1 ? 'Continuar' : 'Finalizar'}</button>
+    if(startMakingQuiz){
+        return (
+            <div className='min-h-full my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
+                <div className="border border-1 border-blue-100 rounded-lg shadow-lg p-4 md:p-8 mt-8">
+                    <h2 className='text-lg md:text-2xl mt-4 md:mt-12 mb-4'>Pergunta {counter+1} do seu Quiz</h2>
+                    <input type="text" placeholder="Pergunta do seu quiz" className="input input-bordered w-full" value={questionStatement} onChange={ev => setQuestionStatement(ev.target.value)} />
+
+                    <h2 className='text-lg md:text-2xl mt-4 md:mt-12 mb-4'>Adicione suas alternativas</h2>
+                    <div>
+                        {questionOptions.map((option, index) => (
+                            <input type="text" key={index} value={option} onChange={ev => handleChange(ev, index)} placeholder="Opção do seu quiz" className="input input-bordered w-full mt-4" />
+                        ))} 
+                    </div>
+                    
+                    <button className='btn bg-blue-600 text-white mt-6' onClick={addOption}>Adicionar</button>
+
+                    <div className='md:mb-10 mt-4 md:mt-12'>
+                        <button onClick={handleQuestionCounter} className='btn bg-blue-600 text-white py-2 px-4 w-full'>{counter != howMany-1 ? 'Continuar' : 'Finalizar'}</button>
+                    </div>
                 </div>
             </div>
         )
@@ -94,23 +113,23 @@ const CreateQuiz = () => {
     
     return (
         <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
-            <button className='btn btn-active'>
+            <button onClick={() => onChange(false)} className='btn btn-active'>
                 ⬅️ Voltar
             </button>
-            <form>
-                <h2 className='text-2xl mt-4 mb-4'>Título do seu Quiz</h2>
-                <input className="input input-ghost w-full" type="text" value={quizTitle} onChange={ev => setQuizTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
+            <form className="border border-1 border-blue-100 rounded-lg shadow-lg p-4 md:p-8 mt-8">
+                <h2 className='text-lg md:text-2xl mt-4 md:mt-12 mb-2'>Título do seu Quiz</h2>
+                <input className="input input-bordered w-full" type="text" value={quizTitle} onChange={ev => setQuizTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
 
-                <h2 className='text-2xl mt-12 mb-4'>Descrição do seu Quiz</h2>
-                <input className="input input-ghost w-full" type="text" value={quizDescription} onChange={ev => setQuizDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
-
-
-                <h2 className='text-2xl mt-12 mb-4'>Quantas questões terão o seu Quiz</h2>
-                <input type="number" placeholder="Type here" className="input input-ghost w-full" value={howMany} onChange={ev => setHowMany(ev.target.value)} />
+                <h2 className='text-lg md:text-2xl mt-4 md:mt-12 mb-2'>Descrição do seu Quiz</h2>
+                <input className="input input-bordered w-full" type="text" value={quizDescription} onChange={ev => setQuizDescription(ev.target.value)} placeholder='Um descrição de abrir a boca...' /> 
 
 
-                <div className='mb-10 mt-12'>
-                    <button onClick={() => setStartMakingQuiz(true)} className='btn btn-info py-2 px-4 w-full'>Continuar</button>
+                <h2 className='text-lg md:text-2xl mt-4 md:mt-12 mb-2'>Quantas questões terão o seu Quiz</h2>
+                <input type="number" placeholder="Type here" className="input input-bordered w-full" value={howMany} onChange={ev => setHowMany(ev.target.value)} />
+
+
+                <div className='md:mb-10 mt-4 md:mt-12'>
+                    <button onClick={() => setStartMakingQuiz(true)} className='btn bg-blue-600 text-white py-2 px-4 w-full'>Continuar</button>
                 </div>
             </form>
         </div>
