@@ -15,7 +15,7 @@ const Header = () => {
               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
               </div>
-              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-base-100 rounded-box w-52">
                 <li><a>Homepage</a></li>
                 <li><a>Portfolio</a></li>
                 <li><a>About</a></li>
@@ -32,7 +32,7 @@ const Header = () => {
                 </div> 
                 <div className="drawer-side">
                   <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-                  <ul className="menu p-4 w-60 lg:w-80 min-h-full bg-base-200 text-base-content">
+                  <ul className="menu p-4 w-60 md:w-80 min-h-full bg-base-200 text-base-content">
                     <div className='mx-auto text-center items-center my-8'>
                       <div className='btn btn-ghost btn-circle avatar w-16 h-16'>
                         <img src='https://dudewipes.com/cdn/shop/articles/gigachad.jpg?v=1667928905&width=2048' className='rounded-full w-48 bg-gray-300' />
@@ -42,7 +42,7 @@ const Header = () => {
                     </div>
                     
                     {/* Sidebar content here */}
-                    <li className='font-semibold text-xl'><a>Perfil</a></li>
+                    <li className='font-semibold text-xl'><a href='/perfil'>Perfil</a></li>
                     <li className='font-semibold text-xl'><a href='/dashboard'>Dashboard</a></li>
                     <li className='font-semibold text-xl'><a>Suporte</a></li>
                     <li className='font-semibold text-xl'><a>Sair</a></li>

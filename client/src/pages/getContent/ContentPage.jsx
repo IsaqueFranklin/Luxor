@@ -3,12 +3,14 @@ import { Navigate, useParams } from 'react-router-dom'
 import { UserContext } from '../../UserContext';
 import axios from 'axios';
 import CreateQuiz from '../create/CreateQuiz';
+import CreateContent from '../create/CreateContent';
 
 const ContentPage = () => {
 
   const {ready, user, setUser} = useContext(UserContext);
   const {id} = useParams();
 
+  const [editContent, setEditContent] = useState(false);
   const [goBack, setGoBack] = useState(false);
   const [createQuiz, setCreateQuiz] = useState(false);
 
@@ -19,17 +21,23 @@ const ContentPage = () => {
   const [conjunto, setConjunto] = useState();
 
   useEffect(() => {
-    if(id && user){
-      axios.get('/content/'+id).then(response => {
-        const {data} = response;
-        setTitle(data.title)
-        setDescription(data.description)
-        setVideoUrl(data.videoUrl)
-        setPdfUrl(data.pdfURl)
-        setConjunto(data.conjunto)
-      })
+    if(!id){
+      return
     }
+    
+    axios.get('/content/'+id).then(response => {
+      const {data} = response;
+      setTitle(data.title)
+      setDescription(data.description)
+      setVideoUrl(data.videoUrl)
+      setPdfUrl(data.pdfURl)
+      setConjunto(data.conjunto)
+    })
   }, [])
+
+  if(editContent){
+    return <CreateContent onChange={setEditContent} />
+  }
 
   if(goBack){
     return <Navigate to={'/modulo/'+conjunto} />
@@ -46,9 +54,14 @@ const ContentPage = () => {
           <button onClick={() => setGoBack(true)} className='btn btn-active'>
             ⬅️ Voltar
           </button>
-          <button onClick={() => setCreateQuiz(true)} className='btn btn-success'>
-            Criar Quiz
-          </button>
+          {user?.admin && (
+              <>
+                <button onClick={() => setEditContent(true)} type="submit" className="btn btn-active">Editar conteúdo</button>
+                <button onClick={() => setCreateQuiz(true)} className='btn btn-success'>
+                  Criar Quiz
+                </button>
+              </>
+          )}
         </div>
         <div className='py-6'>
           <h2 className='text-3xl'>{title}</h2>

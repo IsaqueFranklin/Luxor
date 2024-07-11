@@ -2,7 +2,7 @@
 //import Header from "./components/Header";
 import {Outlet} from "react-router-dom";
 import Header from "./components.jsx/Header";
-import Footer from "./components.jsx/Footer";
+import { Toaster } from "react-hot-toast";
 
 export default function Layout() {
   return (
@@ -12,6 +12,7 @@ export default function Layout() {
      
     </div>*/}
     <Header />
+    <Toaster />
     <Outlet />
     </>
   );

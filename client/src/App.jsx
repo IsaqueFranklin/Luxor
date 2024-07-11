@@ -13,6 +13,7 @@ import ModulePage from './pages/getContent/ModulePage';
 import ContentPage from './pages/getContent/ContentPage';
 import CreateGroup from './pages/create/CreateGroup';
 import EditGroup from './pages/edit/EditGroup';
+import ProfilePage from './pages/general/ProfilePage';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path='/' element={ <Layout /> }>
           <Route index element={ <HomePage /> } />
+          <Route path='/perfil' element={ <ProfilePage /> } />
           <Route path='/dashboard' element={ <Dashboard /> } />
           <Route path='/modulo/:id' element={ <ModulePage /> } />
           <Route path='/conteudo/:id' element={ <ContentPage /> } />

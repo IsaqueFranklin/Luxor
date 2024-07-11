@@ -56,7 +56,7 @@ export default function PdfUploader({addedPhotos, onChange}){
                         </div>
                         
                         <div className='mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
-                            {addedPhotos.length > 0 && addedPhotos.map(link => (
+                            {addedPhotos?.length > 0 && addedPhotos.map(link => (
                                 <div className='h-32 flex relative' key={link}>
                                     <iframe src={link} width={120} height={120} />
                                     <img className='rounded-2xl w-full object-cover' src={link} alt="" />

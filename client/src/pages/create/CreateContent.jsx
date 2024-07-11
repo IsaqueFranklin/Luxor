@@ -16,7 +16,7 @@ const CreateContent = ({ onChange }) => {
     const [contentContent, setContentContent] = useState('')
     const [contentAddedPhotos, setContentAddedPhotos] = useState([]);
     const [videoUrl, setVideoUrl] = useState('');
-    const [pdfUrl, setPdfUrl] = useState('');
+    const [pdfUrl, setPdfUrl] = useState([]);
 
     const [redirect, setRedirect] = useState(false);
 
