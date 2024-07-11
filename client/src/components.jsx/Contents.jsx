@@ -15,8 +15,8 @@ export default function Contents({ contents }){
                             <div className="absolute inset-0 bg-gray-700 opacity-30 rounded-md"></div>
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="my-auto mx-auto items-center justify-center px-4">
-                                    <h2 className="text-white text-3xl font-bold">{content.title}</h2>
-                                    <p>{content.description}</p>
+                                    <h2 className="text-white text-xl md:text-3xl font-bold">{content.title}</h2>
+                                    <p className="text-white font-semibold">{content.description}</p>
                                 </div>
                             </div>
                         </div>

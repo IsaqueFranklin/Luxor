@@ -16,24 +16,26 @@ const ContentPage = () => {
 
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
+  const [content, setContent] = useState();
   const [videoUrl, setVideoUrl] = useState();
-  const [pdfUrl, setPdfUrl] = useState();
+  const [pdfUrl, setPdfUrl] = useState([]);
   const [conjunto, setConjunto] = useState();
 
   useEffect(() => {
     if(!id){
       return
     }
-    
+
     axios.get('/content/'+id).then(response => {
       const {data} = response;
       setTitle(data.title)
       setDescription(data.description)
+      setContent(data.content)
       setVideoUrl(data.videoUrl)
       setPdfUrl(data.pdfURl)
       setConjunto(data.conjunto)
     })
-  }, [])
+  }, [editContent])
 
   if(editContent){
     return <CreateContent onChange={setEditContent} />
@@ -50,7 +52,7 @@ const ContentPage = () => {
   return (
     <div className='my-auto items-center py-8 lg:pt-16 px-4 lg:px-0'>
       <div className='my-16 max-w-5xl mx-auto my-auto'>
-        <div className='inline-flex gap-4'>
+        <div className='inline-flex gap-2 mx-auto justify-center'>
           <button onClick={() => setGoBack(true)} className='btn btn-active'>
             ⬅️ Voltar
           </button>
@@ -63,30 +65,32 @@ const ContentPage = () => {
               </>
           )}
         </div>
-        <div className='py-6'>
+        <div className='pt-6 md:py-6'>
           <h2 className='text-3xl'>{title}</h2>
           <p>{description}</p>
         </div>
-        <div className="overflow-hidden relative pb-[56%] rounded-2xl">
-          <iframe
-          className='h-full w-full absolute'
-            width="853"
-            height="480"
-            src={`https://www.youtube.com/embed/zEk3mi4Pt_E?si=lsu7cekOZp-iu2-4`}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            title="Embedded youtube"
-          />
-        </div>
-        {!pdfUrl ? (
-          <div tabIndex={0} className="collapse collapse-arrow border border-base-300 bg-base-200 mt-8">
-            <div className="collapse-title text-xl font-medium">
-              Leia o material disponível
-            </div>
-            <div className="collapse-content"> 
-              <p>tabIndex={0} attribute is necessary to make the div focusable</p>
-            </div>
+        {videoUrl ? (
+          <div className="overflow-hidden relative pb-[56%] rounded-2xl mb-16s">
+            <iframe
+            className='h-full w-full absolute'
+              width="853"
+              height="1580"
+              src={`https://www.youtube.com/embed/zEk3mi4Pt_E?si=lsu7cekOZp-iu2-4`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Embedded youtube"
+            />
+          </div>
+        ) : ''}
+        {pdfUrl?.length > 0 ? (
+          <div className='lg:max-h-full mt-16'>
+            <iframe src={pdfUrl} className='w-full' height={1200} width={400} />
+          </div>
+        ) : ''}
+        {content ? (
+          <div className='md:mt-6 px-0'>
+            <div className='content text-lg lg:text-xl lg:leading-relaxed leading-normal font-serif mb-8 mt-8' dangerouslySetInnerHTML={{__html:content}} />
           </div>
         ) : ''}
       </div>

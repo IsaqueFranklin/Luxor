@@ -408,6 +408,23 @@ app.get('/content/:id', async (req, res) => {
     res.json(await Conteudo.findById(id));
 })
 
+app.post('/delete-content', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+    const {id} = req.body;
+
+    const {admin} = await User.findById(userData?.id);
+    
+    if(admin){
+        try {
+            await Conteudo.findByIdAndDelete(id);
+
+            res.json(200)
+        } catch(err){
+            console.log(err)
+        }
+    }
+})
+
 app.post('/criar-grupo', async (req, res) => {
     const userData = await getUserDataFromReq(req);
     const {groupTitle, booksArray, dia} = req.body;

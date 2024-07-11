@@ -159,7 +159,7 @@ function CreateGroup({ modules, onChange }){
             </button>
             <form onSubmit={!id && booksArray.length === 0 ? problemDialog : createGroupHandle}>
                 <h2 className='text-2xl mt-4 mb-4'>Título do seu grupo</h2>
-                <input className="input input-ghost w-full max-w-xs" type="text" value={groupTitle} onChange={ev => setGroupTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
+                <input className="input input-bordered w-full" type="text" value={groupTitle} onChange={ev => setGroupTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
 
                 {filteredModules?.length > 0 ? filteredModules?.map((module, key) => (
                     <div key={key} className="form-control">

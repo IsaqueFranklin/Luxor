@@ -1,9 +1,28 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../UserContext';
-import { useLocation, useParams } from 'react-router-dom';
+import { Navigate, useLocation, useParams } from 'react-router-dom';
 import PhotosUploader from '../../components.jsx/PhotosUploader';
 import axios from "axios";
 import PdfUploader from '../../components.jsx/PdfUploader';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
+const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline','strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      ['link', 'image'],
+      ['clean']
+    ],
+};
+
+const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image'
+];
 
 const CreateContent = ({ onChange }) => {
     
@@ -17,8 +36,10 @@ const CreateContent = ({ onChange }) => {
     const [contentAddedPhotos, setContentAddedPhotos] = useState([]);
     const [videoUrl, setVideoUrl] = useState('');
     const [pdfUrl, setPdfUrl] = useState([]);
+    const [conjunto, setConjunto] = useState('')
 
     const [redirect, setRedirect] = useState(false);
+    const [redirectToDashboard, setRedirectToDashboard] = useState(false);
 
     useEffect(() => {
         if(!id){
@@ -34,7 +55,8 @@ const CreateContent = ({ onChange }) => {
             setContentAddedPhotos(data.photos)
             setVideoUrl(data.videoUrl)
             setPdfUrl(data.pdfUrl)
-            console.log(location.pathname === '/conteudo/'+id)
+            setConjunto(data.conjunto)
+            //console.log(location.pathname === '/conteudo/'+id)
         })
 
     }, [id])
@@ -43,7 +65,7 @@ const CreateContent = ({ onChange }) => {
         ev.preventDefault();
 
         const conteudoPostData = {
-            contentTitle, contentDescription, contentAddedPhotos, dia:new Date()
+            contentTitle, contentDescription, contentAddedPhotos, videoUrl, pdfUrl, contentContent, dia:new Date()
         }
 
         try {
@@ -69,12 +91,52 @@ const CreateContent = ({ onChange }) => {
 
     }
 
+    async function deleteContent(ev){
+        ev.preventDefault();
+
+        try {
+            if(user?.admin){
+                if(id){
+                    await axios.post('/delete-content', {id});
+                    setRedirectToDashboard(true);
+                }
+            }
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+    function deleteDialog(ev){
+        ev.preventDefault()
+
+        document.getElementById('delete_modal').showModal()
+    }
+
+    if(redirectToDashboard){
+        return <Navigate to={'/modulo/'+conjunto} />
+    }
+
     if(redirect){
-        window.location.reload()
+        window.location.reload();
     }
 
     return (
         <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
+            <dialog id="delete_modal" className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Tem certeza que deseja deletar esse conteúdo?</h3>
+                    <p className="py-4">Se você deletar esse conteúdo não será impossível recuperá-lo.</p>
+                    <div className="modal-action">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <div className='flex gap-4'>
+                            <button onClick={deleteContent} className="btn btn-error">Deletar</button>
+                            <button className="btn">cancelar</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </dialog>
             <button onClick={() => onChange(false)} className='btn btn-active'>
                 ⬅️ Voltar
             </button>
@@ -91,11 +153,21 @@ const CreateContent = ({ onChange }) => {
                 <h2 className='text-2xl mt-12 mb-4'>Adicione o PDF</h2>
                 <PdfUploader addedPhotos={pdfUrl} onChange={setPdfUrl} />  
 
+                <h2 className='text-2xl mt-12 mb-4'>Conteúdo escrito</h2>
+                <ReactQuill
+                    value={contentContent}
+                    onChange={setContentContent}
+                    theme={'snow'}
+                    modules={modules} 
+                    formats={formats} 
+                />
+
                 <h2 className='text-2xl mt-12 mb-4'>Foto de capa do seu conteúdo</h2>
                 <PhotosUploader addedPhotos={contentAddedPhotos} onChange={setContentAddedPhotos} />
 
                 <div className='mb-10 mt-12'>
-                    <button className='btn btn-info py-2 px-4 w-full'>Publicar</button>
+                    <button className='btn btn-info py-2 px-4 w-full'>Publicar conteúdo</button>
+                    <button onClick={deleteDialog} type="submit" className="btn btn-error text-white w-full mt-4">Apagar conteúdo</button>
                 </div>
             </form>
         </div>
