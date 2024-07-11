@@ -51,7 +51,7 @@ export default function PublicarPage(){
 
     return (
         <>
-            <section className="my-auto items-center py-8 lg:pt-32 px-4 lg:px-0">
+            <section className="my-auto items-center py-8 px-4 lg:px-0">
                 
                 <div className='my-16 max-w-7xl mx-auto my-auto'>
                 {user?.admin && (

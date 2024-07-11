@@ -10,7 +10,7 @@ export default function Contents({ contents }){
                 return(
                     <div key={key}>
                     <Link to={'/conteudo/'+content._id} key={key} id={key} className='carousel-item'>
-                        <div className="artboard w-64 h-96 md:phone-1 relative max-w-xl mx-auto mt-20">
+                        <div className="artboard w-64 h-96 md:phone-1 relative max-w-xl mx-auto mt-8">
                             <img className="h-full w-full object-cover rounded-md" src={content.photos?.[0]} alt="Random image" />
                             <div className="absolute inset-0 bg-gray-700 opacity-30 rounded-md"></div>
                             <div className="absolute inset-0 flex items-center justify-center">

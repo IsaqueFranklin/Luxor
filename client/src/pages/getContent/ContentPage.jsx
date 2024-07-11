@@ -58,8 +58,8 @@ const ContentPage = () => {
           </button>
           {user?.admin && (
               <>
-                <button onClick={() => setEditContent(true)} type="submit" className="btn btn-active">Editar conteúdo</button>
-                <button onClick={() => setCreateQuiz(true)} className='btn btn-success'>
+                <button onClick={() => setEditContent(true)} type="submit" className="btn bg-blue-600 text-white">Editar conteúdo</button>
+                <button onClick={() => setCreateQuiz(true)} className='btn bg-blue-600 text-white'>
                   Criar Quiz
                 </button>
               </>

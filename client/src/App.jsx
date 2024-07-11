@@ -14,6 +14,7 @@ import ContentPage from './pages/getContent/ContentPage';
 import CreateGroup from './pages/create/CreateGroup';
 import EditGroup from './pages/edit/EditGroup';
 import ProfilePage from './pages/general/ProfilePage';
+import CustomerSupportPage from './pages/general/CustomerSupportPage';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
@@ -27,6 +28,7 @@ function App() {
           <Route index element={ <HomePage /> } />
           <Route path='/perfil' element={ <ProfilePage /> } />
           <Route path='/dashboard' element={ <Dashboard /> } />
+          <Route path='/suporte' element={ <CustomerSupportPage /> } />
           <Route path='/modulo/:id' element={ <ModulePage /> } />
           <Route path='/conteudo/:id' element={ <ContentPage /> } />
           <Route path='/edit-group/:id' element={ <EditGroup /> } />

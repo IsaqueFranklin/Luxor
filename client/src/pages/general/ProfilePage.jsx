@@ -14,7 +14,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         if(ready && user){
-            axios.get('/auth/get-profile-info').then(response => {
+            axios.get('/get-profile-info').then(response => {
                 const {data} = response
     
                 setProfileImg(data.profileImg);
@@ -30,7 +30,7 @@ const ProfilePage = () => {
 
         try {
             const savePromise = new Promise(async (resolve, reject) => {
-                await axios.put('/auth/edit-profile-info', {
+                await axios.put('/edit-profile-info', {
                     ...profileData
                 })
 
@@ -40,9 +40,9 @@ const ProfilePage = () => {
             await toast.promise(
                 savePromise,
                 {
-                    loading: 'Saving...',
-                    success: <b>Profile saved!</b>,
-                    error: <b>Could not save.</b>,
+                    loading: 'Salvando...',
+                    success: <b>Perfil salvo!</b>,
+                    error: <b>Não foi possível salvar.</b>,
                 }
             )
         } catch (err){
@@ -62,17 +62,17 @@ const ProfilePage = () => {
     return (
         <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
             <form onSubmit={saveProfile}>
-                <h2 className='text-2xl mt-4 mb-4'>Name</h2>
+                <h2 className='text-xl md:text-2xl mt-4'>Nome</h2>
                 <input className="input input-bordered w-full" type="text" value={name} onChange={ev => setName(ev.target.value)} placeholder='Your name...' />
 
-                <h2 className='text-2xl mt-12 mb-4'>Username</h2>
+                <h2 className='text-xl md:text-2xl mt-12'>Nome de usuário</h2>
                 <input className="input input-bordered w-full" type="text" value={username} onChange={ev => setUsername(ev.target.value)} placeholder='Your username...' /> 
 
-                <h2 className='text-2xl mt-12 mb-4'>Profile image</h2>
+                <h2 className='text-xl md:text-2xl mt-12'>Foto de perfil</h2>
                 <PhotosUploader addedPhotos={profileImg} onChange={setProfileImg} />
 
                 <div className='mb-10 mt-12'>
-                    <button className='btn btn-info py-2 px-4 w-full'>Save profile</button>
+                    <button className='btn bg-blue-600 text-white py-2 px-4 w-full'>Salvar perfil</button>
                 </div>
             </form>
         </div>

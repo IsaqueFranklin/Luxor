@@ -93,19 +93,23 @@ export default function ModulePage({ modulos }) {
     }
 
     return (
-        <div className='my-auto items-center py-8 lg:pt-32 px-4 lg:px-0'>
+        <div className='my-auto items-center py-8 px-4 lg:px-0'>
             <div className='my-16 max-w-7xl mx-auto my-auto'>
                 <button onClick={() => setGoBack(true)} className='btn btn-active'>
                     ⬅️ Voltar
                 </button>
                 <div className='mt-8'>
-                    <h1 className="text-xl font-light leading-tight tracking-tight lg:text-3xl mb-4">
-                        Qual tipo de publicação deseja criar?
-                    </h1>
-                    <div className="w-full rounded-lg sm:max-w-md xl:p-0 flex gap-4">
-                        <Link><button onClick={() => setCreateContent(true)} type="submit" className="btn bg-blue-600 text-white">Novo conteúdo</button></Link>
-                        <button onClick={() => setEditModule(true)} type="submit" className="btn bg-blue-600 text-white">Editar módulo</button>
-                    </div>
+                    {user?.admin && (
+                        <div>
+                            <h1 className="text-xl font-light leading-tight tracking-tight lg:text-3xl mb-4">
+                            Qual tipo de publicação deseja criar?
+                            </h1>
+                            <div className="w-full rounded-lg sm:max-w-md xl:p-0 flex gap-4">
+                                <Link><button onClick={() => setCreateContent(true)} type="submit" className="btn bg-blue-600 text-white">Novo conteúdo</button></Link>
+                                <button onClick={() => setEditModule(true)} type="submit" className="btn bg-blue-600 text-white">Editar módulo</button>
+                            </div>
+                        </div>
+                    )}
                     <Contents contents={contents} />
                 </div>
             </div>

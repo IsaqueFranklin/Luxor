@@ -6,12 +6,11 @@ const UserSchema = new Schema({
     username: {type:String, unique:true},
     email: {type:String, unique:true},
     admin: {type:Boolean, default:false},
-    photo: [String],
+    profileImg: [String],
     bio: String,
     instagram: String,
     password: String,
-    following: [mongoose.Schema.Types.ObjectId],
-    followers: [mongoose.Schema.Types.ObjectId],
+    fullUser: {type: Boolean, default: false},
 })
 
 const UserModel = mongoose.model('User', UserSchema);

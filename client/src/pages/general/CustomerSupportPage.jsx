@@ -16,23 +16,23 @@ const CustomerSupportPage = () => {
 
   return (
     <div className='my-auto mx-auto items-center mt-4 lg:mt-12 max-w-4xl px-8'>
-      <h1 className='text-2xl lg:text-4xl font-medium my-8'>Customer support form</h1>
-      <p className='mb-8'>Fill the form bellow and we'll get in touch with your through your email in 1 to 2 days.</p>
+      <h1 className='text-2xl lg:text-4xl font-medium my-8'>Formulário de suporte</h1>
+      <p className='mb-8'>Preencha o formulário e nós entraremos em contato pelo seu email dentro dos próximos 2 dias.</p>
             <form onSubmit={sendSupportEmail}>
-                <h2 className='text-xl lg:text-2xl mt-4 mb-4'>What's your name?</h2>
-                <input type="text" className="input input-bordered w-full" value={name} onChange={ev => setName(ev.target.value)} placeholder='Your name...' />
+                <h2 className='text-xl lg:text-2xl mt-4 mb-4'>Qual seu nome?</h2>
+                <input type="text" className="input input-bordered w-full" value={name} onChange={ev => setName(ev.target.value)} placeholder='Seu nome' />
 
-                <h2 className='text-xl lg:text-2xl mt-12 mb-4'>What's your username?</h2>
-                <input type="text" className="input input-bordered w-full" value={username} onChange={ev => setUsername(ev.target.value)} placeholder='Your username...' /> 
+                <h2 className='text-xl lg:text-2xl mt-12 mb-4'>Qual seu nome de usuário?</h2>
+                <input type="text" className="input input-bordered w-full" value={username} onChange={ev => setUsername(ev.target.value)} placeholder='Seu username' /> 
 
-                <h2 className='text-xl lg:text-2xl mt-12 mb-4'>Describe your problem/issue:</h2>
-                <textarea value={problemDescription} onChange={(ev) => setProblemDescription(ev.target.value)} className="textarea textarea-bordered rounded-xl textarea-lg w-full bg-transparent outline-none border focus:border-indigo-600 shadow-sm" placeholder="Briefly describe your problem/issue"></textarea>
+                <h2 className='text-xl lg:text-2xl mt-12 mb-4'>Descreva seu problema:</h2>
+                <textarea value={problemDescription} onChange={(ev) => setProblemDescription(ev.target.value)} className="textarea textarea-bordered rounded-xl textarea-lg w-full bg-transparent outline-none border focus:border-indigo-600 shadow-sm" placeholder="Descreva brevemente seu problema"></textarea>
 
-                <h2 className='text-xl lg:text-2xl mt-12 mb-4'>Atach some images of your issue if needed</h2>
+                <h2 className='text-xl lg:text-2xl mt-12 mb-4'>Envie algumas imagens do problema se precisar</h2>
                 <PhotosUploader addedPhotos={problemImg} onChange={setProblemImg} />
 
                 <div className='mb-10 mt-12'>
-                    <button className='btn btn-info py-2 px-4 w-full'>Send</button>
+                    <button className='btn bg-blue-600 text-white py-2 px-4 w-full'>Enviar</button>
                 </div>
             </form>
     </div>

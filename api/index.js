@@ -206,8 +206,8 @@ app.get('/profile', (req, res) => {
                 if (err) throw err;
                 const userTrue = await User.findById(userData.id);
                 if(userTrue){
-                    const {name, username, photo, email, _id, admin} = await User.findById(userData.id);
-                    res.json({name, username, photo, email, _id, admin});
+                    const {name, username, profileImg, email, _id, admin, fullUser} = await User.findById(userData.id);
+                    res.json({name, username, profileImg, email, _id, admin, fullUser});
                 } else {
                     res.json(null);
                 }
@@ -218,6 +218,47 @@ app.get('/profile', (req, res) => {
     } catch (e) {
         console.log('Error: ');
         console.log(e);
+    }
+})
+
+app.put('/edit-profile-info', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+    const {fullUser} = await User.findById(userData.id)
+
+    const {name, username, profileImg} = req.body;
+
+    try {
+        if(fullUser){
+            const userDoc = await User.findById(userData.id);
+
+            //console.log(userDoc, name, username, profileImg)
+            userDoc.set({
+                name,
+                username,
+                profileImg,
+            })
+
+            await userDoc.save();
+            res.json(200);
+        }
+    } catch (err){
+        console.log(err);
+        res.json(500);
+    }
+})
+
+app.get('/get-profile-info', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+    const {fullUser} = await User.findById(userData.id)
+
+    try {
+        if(fullUser){
+            const userDoc = await User.findById(userData.id);
+            res.json(userDoc);
+        }
+    } catch (err){
+        console.log(err);
+        res.json(500);
     }
 })
 
