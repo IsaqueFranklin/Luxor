@@ -82,6 +82,21 @@ const CreateQuiz = ({onChange}) => {
                     <h3 className='text-2xl font-semibold mb-4'>{quizTitle}</h3>
                     <span className='text-sm mb-2'>Descrição:</span>
                     <p className='font-medium'>{quizDescription}</p>
+                    {questions.length > 0 && questions.map((item, key) => (
+                        <div className='mt-8'>
+                            <div className='mb-8'>
+                                <span>Pergunta {key+1}</span>
+                                <h2 className='font-semibold text-md'>{item.statement}</h2>
+                            </div>
+                            <span>Opções</span>
+                            <ul className='list-disc px-6'>
+                                {item.options.length > 0 && item.options.map((option, key) => (
+                                    <li className='font-semibold text-md'>{option}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                    <button className='btn rounded-lg bg-blue-600 text-white w-full mt-8'>Salvar quiz</button>
                 </div>
             </div>
         )
@@ -90,7 +105,7 @@ const CreateQuiz = ({onChange}) => {
     if(startMakingQuiz){
         return (
             <div className='min-h-full my-auto mx-auto items-center mt-12 max-w-4xl px-8'>
-                <div className="border border-1 border-blue-100 rounded-lg shadow-lg p-4 md:p-8 mt-8">
+                <div className="border border-1 border-blue-700 shadow-lg rounded-lg shadow-lg p-4 md:p-8 mt-8">
                     <h2 className='text-lg md:text-2xl mt-4 md:mt-12 mb-4'>Pergunta {counter+1} do seu Quiz</h2>
                     <input type="text" placeholder="Pergunta do seu quiz" className="input input-bordered w-full" value={questionStatement} onChange={ev => setQuestionStatement(ev.target.value)} />
 
@@ -116,7 +131,7 @@ const CreateQuiz = ({onChange}) => {
             <button onClick={() => onChange(false)} className='btn btn-active'>
                 ⬅️ Voltar
             </button>
-            <form className="border border-1 border-blue-100 rounded-lg shadow-lg p-4 md:p-8 mt-8">
+            <form className="border border-1 border-blue-700 shadow-lg rounded-lg shadow-lg p-4 md:p-8 mt-8">
                 <h2 className='text-lg md:text-2xl mt-4 md:mt-12 mb-2'>Título do seu Quiz</h2>
                 <input className="input input-bordered w-full" type="text" value={quizTitle} onChange={ev => setQuizTitle(ev.target.value)} placeholder='Um título de cair as calças...' />
 
