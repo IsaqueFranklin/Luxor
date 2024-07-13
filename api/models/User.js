@@ -3,7 +3,8 @@ const {Schema} = mongoose;
 
 const quizDataSchema = new Schema({
     quizId: {
-      type: {type: mongoose.Schema.Types.ObjectId, ref:'Conteudo'},
+      type: mongoose.Schema.Types.ObjectId, 
+      ref:'Conteudo',
       required: true
     },
     quizScore: {
