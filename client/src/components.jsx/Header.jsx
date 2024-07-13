@@ -85,7 +85,7 @@ function Header(){
               <img alt="Tailwind CSS Navbar component" src={user?.profileImg ? user.profileImg : 'https://dudewipes.com/cdn/shop/articles/gigachad.jpg?v=1667928905&width=2048'} />
             </div>
           </div>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-base-100 rounded-box w-52">
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow bg-base-100 rounded-box w-52">
             <li>
               <a className="justify-between" href='/perfil'>
                 Perfil

@@ -97,10 +97,10 @@ app.post('/confirmar-email', (req, res) => {
     async function main() {
         // send mail with defined transport object
         const info = await transporter.sendMail({
-        from: 'N54 Club', // sender address
+        from: 'Luxor', // sender address
         to: email, // list of receivers
-        subject: 'Confirme sua conta na N54 Club', // Subject line
-        text: 'Falta apenas um passo para você fazer parte da N54 Club. Esse é o seu código: '+codes, // plain text body
+        subject: 'Confirme sua conta na Luxor', // Subject line
+        text: 'Falta apenas um passo para você fazer parte da Luxor. Esse é o seu código: '+codes, // plain text body
         html: '', // html body
         });
     
@@ -136,10 +136,10 @@ app.post('/2fa-confirmar-email', (req, res) => {
     async function main() {
         // send mail with defined transport object
         const info = await transporter.sendMail({
-        from: 'N54 Club', // sender address
+        from: 'Luxor', // sender address
         to: email, // list of receivers
-        subject: 'Faça login na sua conta da N54 Club', // Subject line
-        text: 'Falta apenas um passo para você fazer login na N54 Club. Esse é o seu código: '+codes, // plain text body
+        subject: 'Faça login na sua conta da Luxor', // Subject line
+        text: 'Falta apenas um passo para você fazer login na Luxor. Esse é o seu código: '+codes, // plain text body
         html: '', // html body
         });
     
