@@ -644,8 +644,6 @@ app.post('/create-quiz', async (req, res) => {
         const {admin} = await User.findById(userData?.id);
 
         if(admin){
-            console.log('stuff')
-            console.log(quizTitle, quizDescription, questions)
             const quiz = await Quiz.create({
                 title: quizTitle,
                 description: quizDescription,
@@ -660,14 +658,19 @@ app.post('/create-quiz', async (req, res) => {
                 await contentDoc.set({
                     quizId: quiz?._id
                 })
+
+                res.json(200)
             } catch(err){
                 console.log('Error saving quizId to content doc. ', err)
+                res.json(500)
             }
-        }else{
-            console.log('no admin')
+        } else {
+            console.log('You are not an admin.')
+            res.json(500)
         }
     } catch(err){
         console.log('Error creating quiz doc in bd. ', err)
+        res.json(500)
     }
 })
 

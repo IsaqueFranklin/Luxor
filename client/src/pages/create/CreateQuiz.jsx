@@ -2,17 +2,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../UserContext'
 import { useParams } from 'react-router-dom'
 import axios from "axios";
+import { useReward } from 'react-rewards';
 
 const CreateQuiz = ({onChange}) => {
 
     const {ready, user} = useContext(UserContext)
     const {id} = useParams();
+    const { reward, isAnimating } = useReward('rewardId', 'confetti');
 
     const [quizTitle, setQuizTitle] = useState('');
     const [quizDescription, setQuizDescription] = useState('');
 
     const [startMakingQuiz, setStartMakingQuiz] = useState(false);
     const [finishQuiz, setFinishQuiz] = useState(false);
+    const [createdFlag, setCreatedFlag] = useState(false);
 
     const [howMany, setHowMany] = useState(1);
     const [counter, setCounter] = useState(0);
@@ -23,12 +26,18 @@ const CreateQuiz = ({onChange}) => {
 
     const [questions, setQuestions] = useState([]);
 
+    const [redirect, setRedirect] = useState(false);
+
     useEffect(() => {
         if (questions.length.toString() === howMany) {
             console.log(questions.length.toString(), howMany)
             console.log('All questions added:', questions);
         }
-    }, [questions]);
+
+        if(createdFlag){
+            reward();
+        }
+    }, [questions, createdFlag]);
 
     function handleQuestionCounter(ev){
         ev.preventDefault();
@@ -85,12 +94,29 @@ const CreateQuiz = ({onChange}) => {
             await axios.post('/create-quiz', {
                 ...quizData
             })
-    
-            onChange(false)
+
+            setCreatedFlag(true);
+            //reward();
+            //onChange(false)
         } catch(err){
             throw err
         }
+    }
 
+    if(createdFlag){
+        return (
+            <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-6 md:px-8 py-8 md:py-64 justify-center'>
+                <div className="border border-1 border-blue-700 shadow-lg rounded-lg shadow-lg p-4 md:p-8 mt-8 text-center">
+                    <div className='flex flex-col items-center mx-auto justify-center text-center mb-8'>
+                        <h2 className='text-xl md:text-4xl font-semibold mb-2'>Seu Quiz foi criado com sucesso!</h2>
+                        <p className='text-lg'>Finalize para conseguir ver seu quiz na tela do conteúdo em que ele foi criado.</p>
+                        <span id="rewardId" className='w-full justify-center' />
+                    </div>
+                    <span id="rewardId" className='w-full justify-center text-center' />
+                    <button onClick={() => onChange(false)} className='w-full btn bg-blue-600 text-white'>Finalizar</button>
+                </div>
+            </div>
+        )
     }
 
     if(finishQuiz){
@@ -144,7 +170,7 @@ const CreateQuiz = ({onChange}) => {
                                     <button onClick={() => setCorrectOption(option)} className='btn rounded-lg bg-blue-600 text-white'>Opção correta</button>
                                 ) : ''}
                                 {correctOption !== '' && correctOption === option ? (
-                                    <button onClick={() => setCorrectOption('')} className='btn btn-success'>Marcada como correta</button>
+                                    <button onClick={() => setCorrectOption('')} className='btn btn-success text-white'>Marcada como correta</button>
                                 ) : ''}
                             </div>
                         ))} 

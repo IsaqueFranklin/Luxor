@@ -66,6 +66,7 @@ function Header(){
                     {/* Sidebar content here */}
                     <li className='font-semibold text-xl'><a href='/perfil'>Perfil</a></li>
                     <li className='font-semibold text-xl'><a href='/dashboard'>Dashboard</a></li>
+                    <li className='font-semibold text-xl'><a href='/praticar'>Praticar</a></li>
                     <li className='font-semibold text-xl'><a href='/suporte'>Suporte</a></li>
                     <li className='font-semibold text-xl'><a onClick={()=>document.getElementById('signOutModal').showModal()}>Sair</a></li>
                   </ul>
