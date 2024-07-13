@@ -75,7 +75,7 @@ const ContentPage = () => {
             className='h-full w-full absolute'
               width="853"
               height="1580"
-              src={`https://www.youtube.com/embed/zEk3mi4Pt_E?si=lsu7cekOZp-iu2-4`}
+              src={`https://www.youtube.com/embed/`+videoUrl}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
