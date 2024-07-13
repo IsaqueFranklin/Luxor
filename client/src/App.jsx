@@ -16,6 +16,7 @@ import EditGroup from './pages/edit/EditGroup';
 import ProfilePage from './pages/general/ProfilePage';
 import CustomerSupportPage from './pages/general/CustomerSupportPage';
 import QuizPage from './pages/getContent/QuizPage';
+import PlayPage from './pages/PlayPage';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 axios.defaults.withCredentials = true;
@@ -29,10 +30,11 @@ function App() {
           <Route index element={ <HomePage /> } />
           <Route path='/perfil' element={ <ProfilePage /> } />
           <Route path='/dashboard' element={ <Dashboard /> } />
-          <Route path='/praticar' element={ <QuizPage /> } />
+          <Route path='/praticar' element={ <PlayPage /> } />
           <Route path='/suporte' element={ <CustomerSupportPage /> } />
           <Route path='/modulo/:id' element={ <ModulePage /> } />
           <Route path='/conteudo/:id' element={ <ContentPage /> } />
+          <Route path='/quiz/:id' element={ <QuizPage /> } />
           <Route path='/edit-group/:id' element={ <EditGroup /> } />
         </Route>
         <Route path='/cadastro' element={ <RegisterPage /> } />

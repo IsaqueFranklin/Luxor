@@ -674,6 +674,11 @@ app.post('/create-quiz', async (req, res) => {
     }
 })
 
+app.get('/get-quiz/:id', async (req, res) => {
+    const {id} = req.params;
+    res.json(await Quiz.findById(id))
+})
+
 //Start the server
 
 app.listen(5000, () => {
