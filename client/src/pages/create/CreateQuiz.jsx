@@ -73,6 +73,26 @@ const CreateQuiz = ({onChange}) => {
         setQuestionOptions([...questionOptions, '']);
     };
 
+    async function handleCreateQuiz(ev){
+        ev.preventDefault()
+
+        const quizData = {
+            quizTitle, quizDescription, howMany, questions, created:new Date(), id
+        }
+        console.log(quizData)
+
+        try {
+            await axios.post('/create-quiz', {
+                ...quizData
+            })
+    
+            onChange(false)
+        } catch(err){
+            throw err
+        }
+
+    }
+
     if(finishQuiz){
         return (
             <div className='my-auto mx-auto items-center mt-12 max-w-4xl px-6 md:px-8 pb-8 md:pb-24'>
@@ -102,7 +122,7 @@ const CreateQuiz = ({onChange}) => {
                             </div>
                         </div>
                     ))}
-                    <button className='btn rounded-lg bg-blue-600 text-white w-full mt-8'>Salvar quiz</button>
+                    <button onClick={handleCreateQuiz} className='btn rounded-lg bg-blue-600 text-white w-full mt-8'>Salvar quiz</button>
                 </div>
             </div>
         )

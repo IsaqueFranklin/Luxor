@@ -16,6 +16,7 @@ const multer = require('multer');
 const Group = require('./models/Group');
 require('dotenv').config();
 const mime = require('mime-types');
+const Quiz = require('./models/Quiz');
 
 const app = express();
 
@@ -633,6 +634,41 @@ app.get('/get-groups', async (req, res) => {
 app.get('/get-group/:id', async (req, res) => {
     const {id} = req.params;
     res.json(await Group.findById(id));
+})
+
+app.post('/create-quiz', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+    const {quizTitle, quizDescription, howMany, questions, created, id} = req.body;
+    
+    try {
+        const {admin} = await User.findById(userData?.id);
+
+        if(admin){
+            console.log('stuff')
+            console.log(quizTitle, quizDescription, questions)
+            const quiz = await Quiz.create({
+                title: quizTitle,
+                description: quizDescription,
+                howManyQuestions: howMany,
+                questions: questions,
+                contentId: id,
+                created: created,
+            })
+
+            try {
+                const contentDoc = await Conteudo.findById(id)
+                await contentDoc.set({
+                    quizId: quiz?._id
+                })
+            } catch(err){
+                console.log('Error saving quizId to content doc. ', err)
+            }
+        }else{
+            console.log('no admin')
+        }
+    } catch(err){
+        console.log('Error creating quiz doc in bd. ', err)
+    }
 })
 
 //Start the server

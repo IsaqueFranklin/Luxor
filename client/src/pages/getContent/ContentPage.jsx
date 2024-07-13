@@ -65,7 +65,7 @@ const ContentPage = () => {
               </>
           )}
         </div>
-        <div className='pt-6 md:py-6'>
+        <div className='pt-6 mb-4 md:py-6'>
           <h2 className='text-2xl md:text-4xl'>{title}</h2>
           <p className='mt-4'>{description}</p>
         </div>
@@ -93,6 +93,9 @@ const ContentPage = () => {
             <div className='content text-lg lg:text-xl lg:leading-relaxed leading-normal font-serif mb-8 mt-8' dangerouslySetInnerHTML={{__html:content}} />
           </div>
         ) : ''}
+        <div className='py-4'>
+          <button className='btn bg-blue-600 text-white w-full'>Marcar como concluído</button>
+        </div>
       </div>
     </div>
   )

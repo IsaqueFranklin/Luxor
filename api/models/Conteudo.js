@@ -1,35 +1,6 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
-const questionSchema = new Schema({
-    statement: {
-      type: String,
-      required: true
-    },
-    options: [{
-      type: String,
-      required: true
-    }],
-    correctAnswer: {
-      type: String,
-      required: true
-    }
-});
-
-const quizSchema = new Schema({
-    title: {
-      type: String,
-      required: true
-    },
-    description: {
-      type: String
-    },
-    questions: {
-      type: [questionSchema],
-      required: true,
-    }
-});
-
 const ConteudoSchema = new Schema({
     owner: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
     title: String,
@@ -42,7 +13,7 @@ const ConteudoSchema = new Schema({
     modific: Date,
     coments: [String],
     index: Number,
-    quiz: quizSchema,
+    quizId: {type: mongoose.Schema.Types.ObjectId, ref:'Quiz'},
     conjunto: {type: mongoose.Schema.Types.ObjectId, ref:'Book'},
 })
 
