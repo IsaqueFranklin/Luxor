@@ -267,20 +267,36 @@ app.put('/conclude-content', async (req, res) => {
     const userData = await getUserDataFromReq(req)
     const {fullUser} = await User.findById(userData.id)
 
-    const {id} = req.body;
-    console.log(id)
+    const {id, concludeBool} = req.body;
 
-    try {
-        if(fullUser){
-            const userDoc = await User.findById(userData.id)
-            await userDoc.completedContents.push(id);
-            await userDoc.save();
+    if(concludeBool){
+        try {
+            if(fullUser){
+                const userDoc = await User.findById(userData.id)
+                await userDoc.completedContents.push(id);
+                await userDoc.save();
+            }
+            
+            res.json(200)
+        } catch(err){
+            throw err
+            res.json(500)
         }
-        
-        res.json(200)
-    } catch(err){
-        throw err
-        res.json(500)
+    } 
+
+    if(!concludeBool){
+        try {
+            if(fullUser){
+                const userDoc = await User.findById(userData.id)
+                await userDoc.completedContents.pull(id);
+                await userDoc.save();
+            }
+            
+            res.json(200)
+        } catch(err){
+            throw err
+            res.json(500)
+        }
     }
 })
 

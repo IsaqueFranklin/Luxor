@@ -7,8 +7,10 @@ import CreateContent from '../create/CreateContent';
 
 const ContentPage = () => {
 
-  const {ready, user, setUser} = useContext(UserContext);
+  const {ready, user, setUser, setBell} = useContext(UserContext);
   const {id} = useParams();
+
+  const filteredCompletedContents = user?.completedContents?.filter(item => item === id);
 
   const [editContent, setEditContent] = useState(false);
   const [goBack, setGoBack] = useState(false);
@@ -40,8 +42,18 @@ const ContentPage = () => {
   async function handleConcludeContent(ev){
     ev.preventDefault();
 
+    let concludeBool;
+    if(filteredCompletedContents.length === 0){
+      concludeBool = true;
+    }
+
+    if(filteredCompletedContents.length != 0){
+      concludeBool = false;
+    }
+
     try {
-      await axios.put('/conclude-content', {id})
+      await axios.put('/conclude-content', {id, concludeBool})
+      setBell(true);
     } catch(err){
       console.log(err)
     }
@@ -59,8 +71,6 @@ const ContentPage = () => {
     return <CreateQuiz onChange={setCreateQuiz} />
   }
   
-  const filteredCompletedContents = user?.completedContents?.filter(item => item === id)
-  console.log(user?.completedContents)
   return (
     <div className='my-auto items-center py-8 lg:pt-16 px-4 lg:px-0'>
       <div className='my-16 max-w-5xl mx-auto my-auto'>
