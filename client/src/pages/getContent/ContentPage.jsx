@@ -12,6 +12,8 @@ const ContentPage = () => {
 
   const filteredCompletedContents = user?.completedContents?.filter(item => item === id);
 
+  const [contents, setContents] = useState([]);
+
   const [editContent, setEditContent] = useState(false);
   const [goBack, setGoBack] = useState(false);
   const [createQuiz, setCreateQuiz] = useState(false);
@@ -36,6 +38,10 @@ const ContentPage = () => {
       setVideoUrl(data.videoUrl)
       setPdfUrl(data.pdfUrl)
       setConjunto(data.conjunto)
+
+      axios.get('/get-contents/'+data.conjunto).then(response => {
+        setContents([...response.data])
+      })
     })
   }, [editContent])
 
@@ -112,7 +118,12 @@ const ContentPage = () => {
         ) : ''}
         {content ? (
           <div className='md:mt-6 px-0'>
-            <div className='content text-lg lg:text-xl lg:leading-relaxed leading-normal font-serif mb-8 mt-8' dangerouslySetInnerHTML={{__html:content}} />
+            <div tabIndex={0} className="collapse bg-base-200">
+              <div className="collapse-title text-lg font-medium">Descrição</div>
+              <div className="collapse-content">
+                <div className='content text-lg lg:text-xl lg:leading-relaxed leading-normal font-serif mb-8 mt-8' dangerouslySetInnerHTML={{__html:content}} />
+              </div>
+            </div>
           </div>
         ) : ''}
         <div className='py-4'>
@@ -123,23 +134,23 @@ const ContentPage = () => {
           )}
         </div>
       </div>
-      <div className='hidden lg:block mx-auto justify-center text-center pl-4 ml-8'>
+      <div className='hidden lg:block w-full mx-auto justify-center text-center pl-4 ml-8'>
         <h2 className='text-xl font-semibold mb-4'>Conteúdos do módulo</h2>
-        <div className='mb-4 min-h-full top-0 border border-black bg-gray-100 rounded-lg'>
+        <div className='mb-4 top-0 w-full min-h-full border rounded-lg'>
           <ol>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
-            <li className='btn w-full'>dfasdfsdfsdf</li>
+            {contents?.length > 0 && contents.map((item, key) => (
+              <div className='border-b'>
+                <li className='py-3 w-full flex gap-4 md:px-2 lg:px-4 items-center'>
+                  <h2 className='text-lg'>{item.title}</h2>
+                  {filteredCompletedContents?.length === 0 ? (
+                    <button onClick={handleConcludeContent} className='btn bg-blue-600 text-white py-0'>Marcar como concluído</button>
+                  ) : (
+                    <button onClick={handleConcludeContent} className='btn bg-green-600 text-white py-0'>Concluído</button>
+                  )}
+                </li>
+              </div>
+            ))}
+           
           </ol>
         </div>
       </div>
