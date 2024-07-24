@@ -72,8 +72,8 @@ const ContentPage = () => {
   }
   
   return (
-    <div className='my-auto items-center py-8 lg:pt-16 px-4 lg:px-0'>
-      <div className='my-16 max-w-5xl mx-auto my-auto'>
+    <div className='px-4 lg:pr-0 lg:pl-48 mx-auto py-8 lg:pt-4 px-4 lg:px-0 lg:flex h-full'>
+      <div className='my-16 my-auto items-center mx-auto justify-center'>
         <div className='inline-flex gap-2 mx-auto justify-center'>
           <button onClick={() => setGoBack(true)} className='btn btn-active'>
             ⬅️ Voltar
@@ -106,7 +106,7 @@ const ContentPage = () => {
           </div>
         ) : ''}
         {pdfUrl?.length > 0 ? (
-          <div className='lg:max-h-full mt-16'>
+          <div className='lg:max-h-full mt-8'>
             <iframe src={pdfUrl} className='w-full' height={1200} width={400} />
           </div>
         ) : ''}
@@ -121,6 +121,26 @@ const ContentPage = () => {
           ) : (
             <button onClick={handleConcludeContent} className='btn bg-green-600 text-white w-full'>Concluído</button>
           )}
+        </div>
+      </div>
+      <div className='hidden lg:block mx-auto justify-center text-center pl-4 ml-8'>
+        <h2 className='text-xl font-semibold mb-4'>Conteúdos do módulo</h2>
+        <div className='mb-4 min-h-full top-0 border border-black bg-gray-100 rounded-lg'>
+          <ol>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+            <li className='btn w-full'>dfasdfsdfsdf</li>
+          </ol>
         </div>
       </div>
     </div>
