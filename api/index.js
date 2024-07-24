@@ -207,8 +207,8 @@ app.get('/profile', (req, res) => {
                 if (err) throw err;
                 const userTrue = await User.findById(userData.id);
                 if(userTrue){
-                    const {name, username, profileImg, email, _id, admin, fullUser} = await User.findById(userData.id);
-                    res.json({name, username, profileImg, email, _id, admin, fullUser});
+                    const {name, username, profileImg, email, _id, admin, fullUser, completedContents, completedModules} = await User.findById(userData.id);
+                    res.json({name, username, profileImg, email, _id, admin, fullUser, completedContents, completedModules});
                 } else {
                     res.json(null);
                 }
@@ -260,6 +260,27 @@ app.get('/get-profile-info', async (req, res) => {
     } catch (err){
         console.log(err);
         res.json(500);
+    }
+})
+
+app.put('/conclude-content', async (req, res) => {
+    const userData = await getUserDataFromReq(req)
+    const {fullUser} = await User.findById(userData.id)
+
+    const {id} = req.body;
+    console.log(id)
+
+    try {
+        if(fullUser){
+            const userDoc = await User.findById(userData.id)
+            await userDoc.completedContents.push(id);
+            await userDoc.save();
+        }
+        
+        res.json(200)
+    } catch(err){
+        throw err
+        res.json(500)
     }
 })
 

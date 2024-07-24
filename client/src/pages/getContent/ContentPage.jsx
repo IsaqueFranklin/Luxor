@@ -37,6 +37,16 @@ const ContentPage = () => {
     })
   }, [editContent])
 
+  async function handleConcludeContent(ev){
+    ev.preventDefault();
+
+    try {
+      await axios.put('/conclude-content', {id})
+    } catch(err){
+      console.log(err)
+    }
+  }
+
   if(editContent){
     return <CreateContent onChange={setEditContent} />
   }
@@ -48,7 +58,9 @@ const ContentPage = () => {
   if(createQuiz){
     return <CreateQuiz onChange={setCreateQuiz} />
   }
-
+  
+  const filteredCompletedContents = user?.completedContents?.filter(item => item === id)
+  console.log(user?.completedContents)
   return (
     <div className='my-auto items-center py-8 lg:pt-16 px-4 lg:px-0'>
       <div className='my-16 max-w-5xl mx-auto my-auto'>
@@ -94,7 +106,11 @@ const ContentPage = () => {
           </div>
         ) : ''}
         <div className='py-4'>
-          <button className='btn bg-blue-600 text-white w-full'>Marcar como concluído</button>
+          {filteredCompletedContents?.length === 0 ? (
+            <button onClick={handleConcludeContent} className='btn bg-blue-600 text-white w-full'>Marcar como concluído</button>
+          ) : (
+            <button onClick={handleConcludeContent} className='btn bg-green-600 text-white w-full'>Concluído</button>
+          )}
         </div>
       </div>
     </div>
