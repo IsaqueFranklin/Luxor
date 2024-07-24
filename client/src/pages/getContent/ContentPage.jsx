@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { UserContext } from '../../UserContext';
 import axios from 'axios';
 import CreateQuiz from '../create/CreateQuiz';
@@ -79,7 +79,7 @@ const ContentPage = () => {
   
   return (
     <div className='px-4 lg:pr-0 lg:pl-48 mx-auto py-8 lg:pt-4 px-4 lg:px-0 lg:flex h-full'>
-      <div className='my-16 my-auto items-center mx-auto justify-center'>
+      <div className='my-16 my-auto items-center mx-auto justify-center lg:w-[200%]'>
         <div className='inline-flex gap-2 mx-auto justify-center'>
           <button onClick={() => setGoBack(true)} className='btn btn-active'>
             ⬅️ Voltar
@@ -136,19 +136,19 @@ const ContentPage = () => {
       </div>
       <div className='hidden lg:block w-full mx-auto justify-center text-center pl-4 ml-8'>
         <h2 className='text-xl font-semibold mb-4'>Conteúdos do módulo</h2>
-        <div className='mb-4 top-0 w-full min-h-full border rounded-lg'>
-          <ol>
+        <div className='mb-4 top-0 w-full min-h-full border rounded-lg bg-gray-900'>
+          <ol className='py-2'>
             {contents?.length > 0 && contents.map((item, key) => (
-              <div className='border-b'>
-                <li className='py-3 w-full flex gap-4 md:px-2 lg:px-4 items-center'>
+              <a href={"/conteudo/"+item._id}>
+                <li className={id === item._id ? 'justify-between py-3 w-full flex gap-4 md:px-2 lg:px-4 items-center bg-gray-800 text-white hover:bg-gray-300' : 'justify-between py-3 w-full flex gap-4 md:px-2 lg:px-4 items-center bg-gray-900 text-white hover:bg-gray-300'}>
                   <h2 className='text-lg'>{item.title}</h2>
-                  {filteredCompletedContents?.length === 0 ? (
-                    <button onClick={handleConcludeContent} className='btn bg-blue-600 text-white py-0'>Marcar como concluído</button>
+                  {user?.completedContents?.filter(content => content === item._id).length === 0 ? (
+                    <button className='btn btn-info text-white py-0'>Não concluído</button>
                   ) : (
-                    <button onClick={handleConcludeContent} className='btn bg-green-600 text-white py-0'>Concluído</button>
+                    <button className='btn btn-success text-white py-0'>Concluído</button>
                   )}
                 </li>
-              </div>
+              </a>
             ))}
            
           </ol>
