@@ -480,15 +480,21 @@ app.put('/criar-conteudo', async (req, res) => {
 app.put('/comment-on-content', async (req, res) => {
     const userData = await getUserDataFromReq(req);
 
-    const {id, comment} = req.body;
+    const {id, comment, timestamp} = req.body;
 
     const {fullUser} = await User.findById(userData.id);
 
-    console.log(id, comment)
     if(fullUser){
         try {
+
+            const commentDoc = {
+                userId: userData.id,
+                body: comment,
+                timestamp: timestamp,
+            }
+
             const contentDoc = await Conteudo.findById(id);
-            contentDoc.comments.push(comment);
+            contentDoc.comments.push(commentDoc);
             await contentDoc.save();
 
             res.json(200)
@@ -506,7 +512,7 @@ app.get('/get-contents/:id', async (req, res) => {
 
 app.get('/content/:id', async (req, res) => {
     const {id} = req.params;
-    res.json(await Conteudo.findById(id));
+    res.json(await Conteudo.findById(id).sort({dia: -1}).populate('comments.userId', ['username', 'profileImg']));
 })
 
 app.post('/delete-content', async (req, res) => {

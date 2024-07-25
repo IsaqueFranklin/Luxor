@@ -74,10 +74,11 @@ const ContentPage = () => {
     ev.preventDefault();
 
     try {
-      const bodyContent = {id, comment}
+      const bodyContent = {id, comment, timestamp:new Date()}
       await axios.put('/comment-on-content', {...bodyContent})
 
       setReloadContent(!contentReload);
+      setComment('')
     } catch(err){
       throw err
     }
@@ -159,10 +160,16 @@ const ContentPage = () => {
               <button onClick={handleComment} className='btn bg-blue-600 text-white rounded-md'>Enviar</button>
             </div>
 
-            <div className='py-8'>
+            <div className='pt-8'>
               {contentComments.length > 0 && contentComments.map((item, key) => (
-                <div key={key} className='my-4 border-b'>
-                  <h2 className=''>{item}</h2>
+                <div key={key} className='my-4 w-full'>
+                  <div className='inline-flex items-center gap-2'>
+                    <div className="btn btn-ghost btn-circle avatar w-12 h-12">
+                      <img className='btn btn-ghost btn-circle avatar w-12 h-12' alt="Tailwind CSS Navbar component" src={item?.userId?.profileImg ?item?.userId?.profileImg : 'https://dudewipes.com/cdn/shop/articles/gigachad.jpg?v=1667928905&width=2048'} />
+                    </div>
+                    <span className='font-semibold text-gray-700'>{item?.userId?.username}</span>
+                  </div>
+                  <h2 className=''>{item.body}</h2>
                 </div>
               ))}
             </div>
