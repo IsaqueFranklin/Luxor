@@ -273,7 +273,7 @@ app.put('/conclude-content', async (req, res) => {
         try {
             if(fullUser){
                 const userDoc = await User.findById(userData.id)
-                await userDoc.completedContents.push(id);
+                userDoc.completedContents.push(id);
                 await userDoc.save();
             }
             
@@ -288,7 +288,7 @@ app.put('/conclude-content', async (req, res) => {
         try {
             if(fullUser){
                 const userDoc = await User.findById(userData.id)
-                await userDoc.completedContents.pull(id);
+                userDoc.completedContents.pull(id);
                 await userDoc.save();
             }
             
@@ -474,6 +474,27 @@ app.put('/criar-conteudo', async (req, res) => {
     
     } catch(err){
         console.log(err)
+    }
+})
+
+app.put('/comment-on-content', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+
+    const {contentId, comment} = req.body;
+
+    const {fullUser} = await User.findById(userData.id);
+
+    if(fullUser){
+        try {
+            const contentDoc = await Conteudo.findById(contentId);
+            contentDoc.comments.push(comment);
+            await contentDoc.save();
+
+            res.json(200)
+
+        } catch(err){
+            throw err
+        }
     }
 })
 

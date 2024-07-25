@@ -11,7 +11,7 @@ const ConteudoSchema = new Schema({
     pdfUrl: [String], //Link do vídeo do youtube para embed
     dia: Date,
     modific: Date,
-    coments: [String],
+    comments: [String],
     index: Number,
     quizId: {type: mongoose.Schema.Types.ObjectId, ref:'Quiz'},
     conjunto: {type: mongoose.Schema.Types.ObjectId, ref:'Book'},
