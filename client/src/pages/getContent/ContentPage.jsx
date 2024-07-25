@@ -99,6 +99,35 @@ const ContentPage = () => {
   return (
     <div className='px-4 lg:pr-0 lg:pl-48 mx-auto py-8 lg:pt-4 px-4 lg:px-0 lg:flex h-full'>
       <div className='my-16 my-auto items-center mx-auto justify-center lg:w-[200%]'>
+        <dialog id="seeContents" className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-xl mb-4">Conteúdos do módulo</h3>
+            <div className='border rounded-lg'>
+              <ol className=''>
+                {contents?.length > 0 && contents.map((item, key) => (
+                  <a href={"/conteudo/"+item._id} key={key}>
+                    <li className={id === item._id ? 'justify-between py-3 w-full px-4 flex gap-4 items-center bg-gray-800 text-white rounded-lg' : 'justify-between py-3 w-full flex gap-4 md:px-2 lg:px-4 items-center rounded-lg'}>
+                      <h2 className='text-lg'>{item.title}</h2>
+                      {user?.completedContents?.filter(content => content === item._id).length === 0 ? (
+                        <h2 className='text-blue-600'>Não concluído</h2>
+                      ) : (
+                        <h2 className='text-green-600'>Concluído</h2>
+                      )}
+                    </li>
+                  </a>
+                ))}
+              </ol>
+            </div>
+            <div className="modal-action">
+              <form method="dialog">
+                {/* if there is a button in form, it will close the modal */}
+                <div className='inline-flex gap-4'>
+                  <button className="btn btn-active w-full">Fechar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </dialog>
         <div className='inline-flex gap-2 mx-auto justify-center'>
           <button onClick={() => setGoBack(true)} className='btn btn-active'>
             ⬅️ Voltar
@@ -136,16 +165,17 @@ const ContentPage = () => {
           </div>
         ) : ''}
         {content ? (
-          <div className='md:mt-6 px-0'>
+          <div className='mt-4 md:mt-6 px-0'>
             <div tabIndex={0} className="collapse bg-base-200">
               <div className="collapse-title text-lg font-medium">Descrição</div>
               <div className="collapse-content">
-                <div className='content text-lg lg:text-xl lg:leading-relaxed leading-normal font-serif mb-8 mt-8' dangerouslySetInnerHTML={{__html:content}} />
+                <div className='content lg:text-xl lg:leading-relaxed leading-normal mb-8 mt-8' dangerouslySetInnerHTML={{__html:content}} />
               </div>
             </div>
           </div>
         ) : ''}
         <div className='py-4'>
+          <button onClick={()=>document.getElementById('seeContents').showModal()} className='md:hidden btn bg-blue-600 mb-4 w-full text-white'>Ver conteúdos</button>
           {filteredCompletedContents?.length === 0 ? (
             <button onClick={handleConcludeContent} className='btn bg-blue-600 text-white w-full'>Marcar como concluído</button>
           ) : (
@@ -162,12 +192,12 @@ const ContentPage = () => {
 
             <div className='pt-8'>
               {contentComments.length > 0 && contentComments.map((item, key) => (
-                <div key={key} className='my-4 w-full'>
+                <div key={key} className='mt-6 mb-4 w-full'>
                   <div className='inline-flex items-center gap-2'>
                     <div className="btn btn-ghost btn-circle avatar w-12 h-12">
                       <img className='btn btn-ghost btn-circle avatar w-12 h-12' alt="Tailwind CSS Navbar component" src={item?.userId?.profileImg ?item?.userId?.profileImg : 'https://dudewipes.com/cdn/shop/articles/gigachad.jpg?v=1667928905&width=2048'} />
                     </div>
-                    <span className='font-semibold text-gray-700'>{item?.userId?.username}</span>
+                    <span className='font-semibold'>{item?.userId?.username}</span>
                   </div>
                   <h2 className=''>{item.body}</h2>
                 </div>
