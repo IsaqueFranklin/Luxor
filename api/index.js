@@ -480,13 +480,14 @@ app.put('/criar-conteudo', async (req, res) => {
 app.put('/comment-on-content', async (req, res) => {
     const userData = await getUserDataFromReq(req);
 
-    const {contentId, comment} = req.body;
+    const {id, comment} = req.body;
 
     const {fullUser} = await User.findById(userData.id);
 
+    console.log(id, comment)
     if(fullUser){
         try {
-            const contentDoc = await Conteudo.findById(contentId);
+            const contentDoc = await Conteudo.findById(id);
             contentDoc.comments.push(comment);
             await contentDoc.save();
 

@@ -24,6 +24,10 @@ const ContentPage = () => {
   const [videoUrl, setVideoUrl] = useState();
   const [pdfUrl, setPdfUrl] = useState([]);
   const [conjunto, setConjunto] = useState();
+  const [contentComments, setContentComments] = useState([]);
+
+  const [comment, setComment] = useState('');
+  const [contentReload, setReloadContent] = useState(false);
 
   useEffect(() => {
     if(!id){
@@ -38,12 +42,13 @@ const ContentPage = () => {
       setVideoUrl(data.videoUrl)
       setPdfUrl(data.pdfUrl)
       setConjunto(data.conjunto)
+      setContentComments(data.comments)
 
       axios.get('/get-contents/'+data.conjunto).then(response => {
         setContents([...response.data])
       })
     })
-  }, [editContent])
+  }, [editContent, contentReload])
 
   async function handleConcludeContent(ev){
     ev.preventDefault();
@@ -62,6 +67,19 @@ const ContentPage = () => {
       setBell(true);
     } catch(err){
       console.log(err)
+    }
+  }
+
+  async function handleComment(ev){
+    ev.preventDefault();
+
+    try {
+      const bodyContent = {id, comment}
+      await axios.put('/comment-on-content', {...bodyContent})
+
+      setReloadContent(!contentReload);
+    } catch(err){
+      throw err
     }
   }
 
@@ -133,24 +151,40 @@ const ContentPage = () => {
             <button onClick={handleConcludeContent} className='btn bg-green-600 text-white w-full'>Concluído</button>
           )}
         </div>
+        <div className='py-8'>
+          <h2 className='text-lg font-semibold mb-4'>Comentários</h2>
+          <div className='border rounded-md p-4'>
+            <div className='flex gap-4'>
+              <input value={comment} onChange={ev => setComment(ev.target.value)} className='input input-bordered w-full rounded-md' placeholder='Escreva seu comentário aqui...' />
+              <button onClick={handleComment} className='btn bg-blue-600 text-white rounded-md'>Enviar</button>
+            </div>
+
+            <div className='py-8'>
+              {contentComments.length > 0 && contentComments.map((item, key) => (
+                <div key={key} className='my-4 border-b'>
+                  <h2 className=''>{item}</h2>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
       <div className='hidden lg:block w-full mx-auto justify-center text-center pl-4 ml-8'>
         <h2 className='text-xl font-semibold mb-4'>Conteúdos do módulo</h2>
-        <div className='mb-4 top-0 w-full min-h-full border rounded-lg bg-gray-900'>
+        <div className='mb-4 top-0 w-full min-h-[82%] border rounded-lg bg-gray-900'>
           <ol className='py-2'>
             {contents?.length > 0 && contents.map((item, key) => (
-              <a href={"/conteudo/"+item._id}>
+              <a href={"/conteudo/"+item._id} key={key}>
                 <li className={id === item._id ? 'justify-between py-3 w-full flex gap-4 md:px-2 lg:px-4 items-center bg-gray-800 text-white hover:bg-gray-300' : 'justify-between py-3 w-full flex gap-4 md:px-2 lg:px-4 items-center bg-gray-900 text-white hover:bg-gray-300'}>
                   <h2 className='text-lg'>{item.title}</h2>
                   {user?.completedContents?.filter(content => content === item._id).length === 0 ? (
-                    <button className='btn btn-info text-white py-0'>Não concluído</button>
+                    <h2 className='text-blue-600'>Não concluído</h2>
                   ) : (
-                    <button className='btn btn-success text-white py-0'>Concluído</button>
+                    <h2 className='text-green-600'>Concluído</h2>
                   )}
                 </li>
               </a>
             ))}
-           
           </ol>
         </div>
       </div>
