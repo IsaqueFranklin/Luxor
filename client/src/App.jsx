@@ -18,7 +18,7 @@ import CustomerSupportPage from './pages/general/CustomerSupportPage';
 import QuizPage from './pages/getContent/QuizPage';
 import PlayPage from './pages/PlayPage';
 
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 axios.defaults.withCredentials = true;
 
 function App() {
