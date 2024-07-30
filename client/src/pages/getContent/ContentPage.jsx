@@ -84,6 +84,18 @@ const ContentPage = () => {
     }
   }
 
+  async function removeComment(commentId){
+
+    try {
+      const bodyContent = {commentId, id}
+      await axios.put('/remove-comment-on-content', {...bodyContent})
+
+      setReloadContent(!contentReload);
+    } catch(err){
+      throw err
+    }
+  }
+
   if(editContent){
     return <CreateContent onChange={setEditContent} />
   }
@@ -193,11 +205,28 @@ const ContentPage = () => {
             <div className='pt-8'>
               {contentComments.length > 0 && contentComments.map((item, key) => (
                 <div key={key} className='mt-6 mb-4 w-full'>
-                  <div className='inline-flex items-center gap-2'>
-                    <div className="btn btn-ghost btn-circle avatar w-12 h-12">
-                      <img className='btn btn-ghost btn-circle avatar w-12 h-12' alt="Tailwind CSS Navbar component" src={item?.userId?.profileImg ?item?.userId?.profileImg : 'https://dudewipes.com/cdn/shop/articles/gigachad.jpg?v=1667928905&width=2048'} />
+                  <dialog id={key} className="modal">
+                    <div className="modal-box">
+                      <h3 className="font-bold text-lg">Tem certeza?</h3>
+                      <p className="py-4">Após deletar não será possível reaver o comentário.</p>
+                      <div className="modal-action">
+                        <form method="dialog">
+                          {/* if there is a button in form, it will close the modal */}
+                          <button onClick={() => removeComment(item._id)} className="btn">Deletar</button>
+                        </form>
+                      </div>
                     </div>
-                    <span className='font-semibold'>{item?.userId?.username}</span>
+                  </dialog>
+                  <div className='flex justify-between mb-2'>
+                    <div className='inline-flex items-center gap-x-2 gap-y-4'>
+                      <div className="btn btn-ghost btn-circle avatar w-12 h-12">
+                        <img className='btn btn-ghost btn-circle avatar w-12 h-12' alt="Tailwind CSS Navbar component" src={item?.userId?.profileImg ?item?.userId?.profileImg : 'https://dudewipes.com/cdn/shop/articles/gigachad.jpg?v=1667928905&width=2048'} />
+                      </div>
+                      <span className='font-semibold'>{item?.userId?.username}</span>
+                    </div>
+                    {user?._id === item?.userId?._id && (
+                      <Link onClick={()=>document.getElementById(key).showModal()} className='text-red-600 hover:text-blue-600'>Apagar</Link>
+                    )}
                   </div>
                   <h2 className=''>{item.body}</h2>
                 </div>

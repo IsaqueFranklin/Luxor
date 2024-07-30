@@ -505,6 +505,30 @@ app.put('/comment-on-content', async (req, res) => {
     }
 })
 
+app.put('/remove-comment-on-content', async (req, res) => {
+    const userData = await getUserDataFromReq(req);
+
+    const {commentId, id} = req.body;
+    console.log(commentId, id)
+    const {fullUser} = await User.findById(userData.id);
+
+    if(fullUser){
+        try {
+            const contentDoc = await Conteudo.findById(id);
+            const comment = contentDoc.comments.id(commentId);
+            console.log(comment)
+            console.log(comment.userId.toString() === userData.id)
+            if(comment.userId.toString() === userData.id){
+                contentDoc.comments.pull(commentId);
+                await contentDoc.save();
+                res.json(200)
+            }
+        } catch(err){
+            throw err
+        }
+    }
+})
+
 app.get('/get-contents/:id', async (req, res) => {
     const {id} = req.params;
     res.json(await Conteudo.find({ conjunto: id }).sort({dia: -1}).populate('owner', ['username', 'dia']));
@@ -512,7 +536,7 @@ app.get('/get-contents/:id', async (req, res) => {
 
 app.get('/content/:id', async (req, res) => {
     const {id} = req.params;
-    res.json(await Conteudo.findById(id).sort({dia: -1}).populate('comments.userId', ['username', 'profileImg']));
+    res.json(await Conteudo.findById(id).sort({dia: -1}).populate('comments.userId', ['username', 'profileImg', 'userId']));
 })
 
 app.post('/delete-content', async (req, res) => {
