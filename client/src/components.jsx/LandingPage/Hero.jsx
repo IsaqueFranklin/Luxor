@@ -17,11 +17,11 @@ const Hero = () => {
                     </p>
                     <div className="items-center justify-center gap-4 space-x-4 space-y-3 sm:flex sm:space-y-0">
                         <a className="hover:no-underline" href="/cadastro"><button className="btn bg-blue-600 py-2 px-4 text-white">Começar agora</button></a>
-                        <a className="hover:no-underline" target="_blank"><button className="btn btn-netrual py-2 px-4">Como funciona</button></a>
+                        <a className="hover:no-underline" href="#comoFunciona"><button className="btn btn-netrual py-2 px-4">Como funciona</button></a>
                     </div>
                 </div>
-                <div className="mt-14 max-w-5xl mx-auto">
-                    <img src="https://img1.picmix.com/output/stamp/normal/3/9/8/7/2377893_6d406.gif" className="w-full shadow-lg rounded-lg" alt="" />
+                <div className="mt-14 max-w-5xl mx-auto max-h-[5%]">
+                    <img src="https://cdn.dribbble.com/users/604891/screenshots/16581214/media/bb111973c18ec6b36a067efdecc9a8ff.gif" className="w-full" alt="" />
                 </div>
             </div>
         </section>

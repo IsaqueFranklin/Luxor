@@ -52,7 +52,7 @@ export default function Features(){
     ]
 
     return (
-        <section className="py-14 max-w-5xl" id="howDoesItWork">
+        <section className="py-14 max-w-5xl" id="comoFunciona">
             <div className="max-w-screen-xl mx-auto px-4 md:px-8 mt-8">
                 <div className="relative max-w-2xl mx-auto sm:text-center">
                     <div className="relative z-10">
