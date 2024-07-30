@@ -2,7 +2,7 @@ import React from 'react'
 
 const Hero = () => {
   return (
-    <div className="z-10 w-full max-w-5xl items-center justify-between">
+    <div className="z-10 w-full max-w-7xl items-center justify-between">
       <section>
             <div className="max-w-screen-xl mx-auto px-4 py-8 lg:pt-28 gap-12 md:px-8">
                 <div className="space-y-6 lg:space-y-8 max-w-4xl mx-auto text-center">
@@ -20,8 +20,8 @@ const Hero = () => {
                         <a className="hover:no-underline" target="_blank"><button className="btn btn-netrual py-2 px-4">Como funciona</button></a>
                     </div>
                 </div>
-                <div className="mt-14">
-                    <img src="https://i.pinimg.com/originals/2d/6e/2d/2d6e2d241d23c273848a61ec5878eb49.gif" className="w-full shadow-lg rounded-lg" alt="" />
+                <div className="mt-14 max-w-5xl mx-auto">
+                    <img src="https://img1.picmix.com/output/stamp/normal/3/9/8/7/2377893_6d406.gif" className="w-full shadow-lg rounded-lg" alt="" />
                 </div>
             </div>
         </section>
