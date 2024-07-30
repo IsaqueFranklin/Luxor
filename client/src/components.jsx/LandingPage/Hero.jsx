@@ -21,7 +21,7 @@ const Hero = () => {
                     </div>
                 </div>
                 <div className="mt-14 max-w-5xl mx-auto max-h-[5%]">
-                    <img src="https://cdn.dribbble.com/users/604891/screenshots/16581214/media/bb111973c18ec6b36a067efdecc9a8ff.gif" className="w-full" alt="" />
+                    <img src="https://cdn.dribbble.com/users/604891/screenshots/16581214/media/bb111973c18ec6b36a067efdecc9a8ff.gif" className="w-full shadow-lg" alt="" />
                 </div>
             </div>
         </section>

@@ -6,6 +6,7 @@ import Features from '../components.jsx/LandingPage/Features'
 import CTA from '../components.jsx/LandingPage/CTA'
 import FAQ from '../components.jsx/LandingPage/FAQ'
 import Footer from '../components.jsx/LandingPage/Footer'
+import Pricing from '../components.jsx/LandingPage/Pricing'
 
 const HomePage = () => {
   return (
@@ -15,6 +16,7 @@ const HomePage = () => {
       <ProblemSection />
       <Features />
       <CTA />
+      <Pricing />
       <FAQ />
       <Footer />
     </main>

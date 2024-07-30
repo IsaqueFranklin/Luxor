@@ -1,6 +1,6 @@
 const CTA = () => {
     return (
-        <section className="relative max-w-5xl mx-auto py-4 px-4 md:px-8 mt-8 lg:mt-16 mb-8 md:border-b md:border-blue-600">
+        <section className="relative max-w-5xl mx-auto py-4 px-4 md:px-8 mt-8 lg:mt-16 mb-8 border-b border-blue-600">
             <div className="absolute top-0 left-0 w-full h-full"></div>
             <div className="relative z-10 gap-5 items-center lg:flex">
                 <div className="flex-1 mt-5 mx-auto sm:w-9/12 lg:mt-0 lg:w-auto">
@@ -11,7 +11,7 @@ const CTA = () => {
                     />
                 </div>
                 <div className="flex-1 max-w-5xl py-5 sm:mx-auto sm:text-center lg:max-w-max lg:text-left">
-                    <h3 className="text-3xl font-semibold md:text-4xl">
+                    <h3 className="text-3xl font-bold md:text-4xl">
                         Aprenda gramática de forma fácil <span className="text-transparent bg-clip-text bg-blue-600">e do jeito certo.</span>
                     </h3>
                     <p className="leading-relaxed mt-6">
